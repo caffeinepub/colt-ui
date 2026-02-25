@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Colt UI is a stylish web app with cool visual effects, a custom cursor, and tabbed navigation. It includes a built-in web proxy, a games section (featuring a Flappy Bird spinoff), a music tab, and additional sections. The design is simple but visually engaging.",
+  "architectural_notes": [
+    "Project name: Colt UI",
+    "Simple layout with tabbed navigation as the primary UI pattern",
+    "Proxy tab likely requires iframe or service worker approach for web proxy functionality"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-tabbed-navigation-layout-with-the-following-top-level-tabs-games-proxy-music-and-more-the-active-tab-should-be-visually-highlighted-navigation-should-be-smooth-with-animated-transitions-between-tabs",
+      "title": "Create a tabbed navigation layout with the following top-level tabs: Games, Proxy, Music, and More. The active tab should be visually highlighted. Navigation should be smooth with animated transitions between tabs.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-dark-sleek-visual-theme-with-glowing-neon-accent-colors-e-g-cyan-or-electric-green-subtle-particle-or-grid-background-animations-glassmorphism-style-cards-and-smooth-hover-effects-throughout-the-site-the-app-name-colt-ui-should-appear-prominently-in-the-header-logo-area",
+      "title": "Apply a dark, sleek visual theme with glowing neon accent colors (e.g., cyan or electric green), subtle particle or grid background animations, glassmorphism-style cards, and smooth hover effects throughout the site. The app name 'Colt UI' should appear prominently in the header/logo area.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-default-browser-cursor-with-a-custom-stylized-cursor-a-glowing-dot-or-crosshair-that-follows-the-mouse-with-a-trailing-effect-and-changes-appearance-on-hover-over-interactive-elements",
+      "title": "Replace the default browser cursor with a custom stylized cursor — a glowing dot or crosshair that follows the mouse with a trailing effect and changes appearance on hover over interactive elements.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-built-in-web-proxy-in-the-proxy-tab-provide-a-url-input-field-and-a-go-button-when-submitted-load-the-target-url-inside-an-iframe-that-fills-the-tab-content-area-display-a-status-bar-showing-the-current-proxied-url",
+      "title": "Implement a built-in web proxy in the Proxy tab. Provide a URL input field and a 'Go' button. When submitted, load the target URL inside an iframe that fills the tab content area. Display a status bar showing the current proxied URL.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-games-tab-that-displays-a-grid-of-available-games-include-at-least-two-games-1-a-flappy-bird-spinoff-called-flappy-colt-built-with-canvas-animation-the-player-controls-a-character-that-flies-through-gaps-in-moving-obstacles-with-a-score-counter-and-restart-mechanic-2-one-additional-simple-browser-game-e-g-a-snake-or-pong-variant-each-game-should-be-selectable-from-the-grid-and-open-in-a-game-view-within-the-tab",
+      "title": "Build a Games tab that displays a grid of available games. Include at least two games: (1) a Flappy Bird spinoff called 'Flappy Colt' built with canvas/animation — the player controls a character that flies through gaps in moving obstacles, with a score counter and restart mechanic; (2) one additional simple browser game (e.g., a Snake or Pong variant). Each game should be selectable from the grid and open in a game view within the tab.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-music-tab-that-allows-users-to-search-for-and-play-music-via-embedded-youtube-or-soundcloud-iframes-provide-a-search-input-and-a-curated-list-of-sample-tracks-stations-as-clickable-cards-selecting-a-track-loads-it-in-an-embedded-player-within-the-tab",
+      "title": "Build a Music tab that allows users to search for and play music via embedded YouTube or SoundCloud iframes. Provide a search input and a curated list of sample tracks/stations as clickable cards. Selecting a track loads it in an embedded player within the tab.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-more-tab-that-serves-as-a-hub-for-additional-utilities-or-links-include-at-least-a-settings-panel-theme-accent-color-toggle-an-about-section-describing-colt-ui-and-placeholder-cards-for-future-features",
+      "title": "Build a 'More' tab that serves as a hub for additional utilities or links. Include at least: a Settings panel (theme accent color toggle), an About section describing Colt UI, and placeholder cards for future features.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-store-user-preferences-last-active-tab-selected-accent-color-from-more-settings-in-the-motoko-backend-so-they-persist-across-sessions",
+      "title": "Store user preferences (last active tab, selected accent color from More/Settings) in the Motoko backend so they persist across sessions.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-all-coming-soon-placeholder-cards-in-the-more-tab-with-fully-functional-utilities-identify-every-card-currently-marked-as-placeholder-or-coming-soon-in-moretab-tsx-and-implement-each-one-as-a-working-feature-based-on-the-existing-moretab-structure-this-should-include-but-is-not-limited-to-a-keyboard-shortcuts-reference-panel-a-fullscreen-toggle-utility-a-notepad-scratch-pad-widget-where-users-can-type-and-save-notes-and-a-clock-stopwatch-widget-each-should-be-rendered-inside-a-glasscard-and-match-the-existing-dark-cyberpunk-neon-theme",
+      "title": "Replace all 'Coming Soon' placeholder cards in the More tab with fully functional utilities. Identify every card currently marked as placeholder or 'coming soon' in MoreTab.tsx and implement each one as a working feature. Based on the existing MoreTab structure, this should include — but is not limited to — a Keyboard Shortcuts reference panel, a Fullscreen toggle utility, a Notepad/scratch-pad widget where users can type and save notes, and a Clock/stopwatch widget. Each should be rendered inside a GlassCard and match the existing dark cyberpunk neon theme.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-functional-notepad-widget-to-the-more-tab-a-textarea-where-users-can-type-freeform-notes-notes-should-be-persisted-in-the-motoko-backend-so-they-survive-page-refreshes-stored-per-user-principal-alongside-existing-preferences",
+      "title": "Add a functional Notepad widget to the More tab: a textarea where users can type freeform notes. Notes should be persisted in the Motoko backend so they survive page refreshes, stored per-user principal alongside existing preferences.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-clock-stopwatch-widget-to-the-more-tab-the-clock-displays-the-current-local-time-updating-every-second-the-stopwatch-has-start-stop-and-reset-controls-and-displays-elapsed-time-in-mm-ss-ms-format",
+      "title": "Add a Clock & Stopwatch widget to the More tab. The clock displays the current local time updating every second. The stopwatch has Start, Stop, and Reset controls and displays elapsed time in MM:SS.ms format.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-keyboard-shortcuts-reference-panel-to-the-more-tab-that-lists-all-keyboard-shortcuts-available-in-colt-ui-e-g-spacebar-click-to-flap-in-flappy-colt-arrow-keys-in-snake-any-global-shortcuts-display-them-in-a-structured-styled-table-or-list-inside-a-glasscard",
+      "title": "Add a Keyboard Shortcuts reference panel to the More tab that lists all keyboard shortcuts available in Colt UI (e.g., spacebar/click to flap in Flappy Colt, arrow keys in Snake, any global shortcuts). Display them in a structured, styled table or list inside a GlassCard.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-fullscreen-toggle-button-to-the-more-tab-that-programmatically-enters-or-exits-browser-fullscreen-mode-for-the-app-button-label-and-icon-should-update-to-reflect-the-current-state-enter-fullscreen-exit-fullscreen",
+      "title": "Add a Fullscreen toggle button to the More tab that programmatically enters or exits browser fullscreen mode for the app. Button label and icon should update to reflect the current state (Enter Fullscreen / Exit Fullscreen).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-5-new-playable-browser-games-to-the-games-tab-each-built-on-a-canvas-with-the-existing-neon-cyberpunk-aesthetic-and-matching-the-glasscard-grid-layout-in-gamestab-tsx-the-games-must-be-1-colt-pong-a-pong-variant-where-the-player-controls-a-paddle-against-a-cpu-opponent-2-colt-tetris-a-tetris-variant-with-falling-neon-colored-tetrominoes-3-colt-breakout-a-breakout-arkanoid-variant-with-a-paddle-ball-and-destructible-neon-blocks-4-colt-asteroids-a-top-down-shooter-where-the-player-shoots-neon-asteroids-5-colt-racer-a-top-down-endless-lane-dodging-racer-each-game-must-have-a-score-counter-and-a-restart-mechanic-all-five-games-must-be-selectable-from-the-existing-gamestab-game-grid-and-open-in-the-full-screen-game-view-with-a-back-button-consistent-with-how-flappy-colt-and-neon-snake-are-currently-displayed",
+      "title": "Add 5 new playable browser games to the Games tab, each built on a canvas with the existing neon/cyberpunk aesthetic and matching the GlassCard grid layout in GamesTab.tsx. The games must be: (1) Colt Pong — a Pong variant where the player controls a paddle against a CPU opponent; (2) Colt Tetris — a Tetris variant with falling neon-colored tetrominoes; (3) Colt Breakout — a Breakout/Arkanoid variant with a paddle, ball, and destructible neon blocks; (4) Colt Asteroids — a top-down shooter where the player shoots neon asteroids; (5) Colt Racer — a top-down endless lane-dodging racer. Each game must have a score counter and a restart mechanic. All five games must be selectable from the existing GamesTab game grid and open in the full-screen game view with a back button, consistent with how Flappy Colt and Neon Snake are currently displayed.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Built-in web proxy tab",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Games tab with multiple games including a Flappy Bird spinoff",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Music tab",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Custom cursor design",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Cool visual effects and animations throughout the site",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Tabbed navigation (Games, Proxy, Music, More)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Extend the Motoko backend actor to support storing and retrieving a user's saved notepad text alongside existing preferences (last active tab, accent color). Add a new field or separate map for notepad content keyed by principal.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add 5 more game spinoffs to the Games tab, each with 'Colt' in the name (e.g., Colt Snake, Colt Pong, Colt Tetris, Colt Breakout, Colt Asteroids) — all playable browser games matching the existing neon/cyberpunk theme.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Colt UI",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

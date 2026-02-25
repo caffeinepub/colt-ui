@@ -1,0 +1,54 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Add 5 new Colt-themed game spinoffs to the Games tab",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "summary": "Add 5 new playable browser games (Colt Pong, Colt Tetris, Colt Breakout, Colt Asteroids, Colt Racer) to the Games tab with canvas-based rendering, neon aesthetic, score counters, restart mechanics, and full-screen game view navigation",
+      "acceptanceCriteria": [
+        "GamesTab displays a card for each of the 5 new games: Colt Pong, Colt Tetris, Colt Breakout, Colt Asteroids, and Colt Racer.",
+        "Each game card is a GlassCard with the game name and a brief description, consistent with the existing Flappy Colt and Neon Snake cards.",
+        "Clicking a game card opens the game in the full-screen game view inside GamesTab with a visible back button.",
+        "All 5 games are fully playable with keyboard or mouse/click controls.",
+        "Every game has a live score counter visible during gameplay.",
+        "Every game has a restart mechanic (button or key press) that resets the game state.",
+        "All games use the existing neon/cyberpunk canvas aesthetic (dark background, glowing neon colors, matching the existing game style).",
+        "The word 'Colt' appears in the name of every new game.",
+        "No regressions to Flappy Colt or Neon Snake gameplay or navigation."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/games/ColtPong.tsx",
+          "operation": "create",
+          "description": "Create a Pong game component with canvas rendering, player-controlled paddle (mouse/keyboard), CPU opponent AI, ball physics with collision detection, neon visual styling, live score counter, game over state, and restart mechanic. Follow the canvas-based pattern from FlappyColt.tsx and SnakeGame.tsx with requestAnimationFrame game loop, neon glow effects, and cyberpunk aesthetic."
+        },
+        {
+          "path": "frontend/src/components/games/ColtTetris.tsx",
+          "operation": "create",
+          "description": "Create a Tetris game component with canvas rendering, falling tetromino pieces in neon colors, grid-based board, keyboard controls (arrow keys for movement/rotation, down for faster drop), line-clearing logic, score tracking, game over detection, and restart mechanic. Use the neon cyberpunk aesthetic with glowing piece borders and grid lines matching the existing game style."
+        },
+        {
+          "path": "frontend/src/components/games/ColtBreakout.tsx",
+          "operation": "create",
+          "description": "Create a Breakout/Arkanoid game component with canvas rendering, player-controlled paddle (mouse/keyboard), bouncing ball with physics, destructible neon-colored brick grid, collision detection, score counter, level completion or game over states, and restart mechanic. Apply neon glow effects and cyberpunk visual styling consistent with FlappyColt.tsx and SnakeGame.tsx."
+        },
+        {
+          "path": "frontend/src/components/games/ColtAsteroids.tsx",
+          "operation": "create",
+          "description": "Create a top-down Asteroids shooter game component with canvas rendering, player ship controlled via keyboard (arrow keys for rotation/thrust, space for shooting), spawning neon asteroids with random trajectories, projectile shooting mechanics, collision detection, score tracking, lives or game over state, and restart mechanic. Use neon lines and glow effects for ship, asteroids, and projectiles in the cyberpunk aesthetic."
+        },
+        {
+          "path": "frontend/src/components/games/ColtRacer.tsx",
+          "operation": "create",
+          "description": "Create a top-down endless lane-dodging racer game component with canvas rendering, player-controlled vehicle moving left/right between lanes (keyboard/mouse), scrolling obstacles/traffic, increasing speed over time, collision detection, score/distance counter, game over state, and restart mechanic. Apply neon styling with glowing lane markers, vehicle trails, and cyberpunk color palette matching existing games."
+        },
+        {
+          "path": "frontend/src/components/tabs/GamesTab.tsx",
+          "operation": "modify",
+          "description": "Add the 5 new game components (ColtPong, ColtTetris, ColtBreakout, ColtAsteroids, ColtRacer) to the availableGames array with appropriate names, descriptions, and component references. Ensure each game card is rendered as a GlassCard in the grid layout and that clicking each card opens the corresponding game in full-screen view with the back button navigation pattern already established for Flappy Colt and Neon Snake. Remove or replace the 'Coming Soon' placeholder card as needed."
+        }
+      ]
+    }
+  ]
+}

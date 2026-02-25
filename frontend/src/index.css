@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 0.1 0.01 250;
+    --foreground: 0.95 0.02 200;
+    --card: 0.14 0.015 250;
+    --card-foreground: 0.95 0.02 200;
+    --popover: 0.14 0.015 250;
+    --popover-foreground: 0.95 0.02 200;
+    --primary: 0.75 0.2 195;
+    --primary-foreground: 0.08 0.01 250;
+    --secondary: 0.18 0.02 250;
+    --secondary-foreground: 0.95 0.02 200;
+    --muted: 0.18 0.02 250;
+    --muted-foreground: 0.6 0.05 220;
+    --accent: 0.75 0.2 195;
+    --accent-foreground: 0.08 0.01 250;
+    --destructive: 0.65 0.25 25;
+    --destructive-foreground: 0.95 0 0;
+    --border: 0.25 0.04 240;
+    --input: 0.2 0.03 240;
+    --ring: 0.75 0.2 195;
+    --neon-cyan: oklch(0.78 0.22 195);
+    --neon-green: oklch(0.82 0.22 145);
+    --neon-purple: oklch(0.72 0.22 290);
+    --neon-pink: oklch(0.72 0.22 330);
+    --glass-bg: oklch(0.14 0.015 250 / 0.6);
+    --glass-border: oklch(0.75 0.2 195 / 0.25);
+  }
+
+  * {
+    @apply border-border;
+    cursor: none !important;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Orbitron', monospace;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .neon-text {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+  }
+
+  .neon-border {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 8px var(--neon-cyan), inset 0 0 8px oklch(0.78 0.22 195 / 0.1);
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px oklch(0.78 0.22 195 / 0.4);
+  }
+
+  .neon-glow-green {
+    box-shadow: 0 0 15px var(--neon-green), 0 0 30px oklch(0.82 0.22 145 / 0.4);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 15px var(--neon-purple), 0 0 30px oklch(0.72 0.22 290 / 0.4);
+  }
+
+  .tab-active {
+    color: var(--neon-cyan);
+    border-bottom: 2px solid var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.1 0.01 250);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.75 0.2 195 / 0.5);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.75 0.2 195 / 0.8);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--neon-cyan); }
+  50% { opacity: 0.7; box-shadow: 0 0 25px var(--neon-cyan), 0 0 50px var(--neon-cyan); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+@keyframes cursor-ring {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.4s ease-out forwards; }
+.animate-slide-in { animation: slide-in 0.3s ease-out forwards; }
+
+/* Tab content transitions */
+.tab-content-enter {
+  animation: fade-in-up 0.35s ease-out forwards;
+}
+
+/* Game canvas focus */
+canvas:focus {
+  outline: none;
+}
+
+/* Iframe reset */
+iframe {
+  border: none;
+}

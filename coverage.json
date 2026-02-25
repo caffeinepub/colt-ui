@@ -1,0 +1,52 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-25T03:44:23.836Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 1,
+    "implemented": 1,
+    "items": [
+      {
+        "id": "REQ-15",
+        "summary": "Add 5 new playable browser games to the Games tab, each built on a canvas with the existing neon/cyberpunk aesthetic and matching the GlassCard grid layout in GamesTab.tsx. The games must be: (1) Colt Pong — a Pong variant where the player controls a paddle against a CPU opponent; (2) Colt Tetris — a Tetris variant with falling neon-colored tetrominoes; (3) Colt Breakout — a Breakout/Arkanoid variant with a paddle, ball, and destructible neon blocks; (4) Colt Asteroids — a top-down shooter where the player shoots neon asteroids; (5) Colt Racer — a top-down endless lane-dodging racer. Each game must have a score counter and a restart mechanic. All five games must be selectable from the existing GamesTab game grid and open in the full-screen game view with a back button, consistent with how Flappy Colt and Neon Snake are currently displayed.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/games/ColtPong.tsx",
+          "frontend/src/components/games/ColtTetris.tsx",
+          "frontend/src/components/games/ColtBreakout.tsx",
+          "frontend/src/components/games/ColtAsteroids.tsx",
+          "frontend/src/components/games/ColtRacer.tsx",
+          "frontend/src/components/tabs/GamesTab.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/games/ColtPong.tsx",
+          "frontend/src/components/games/ColtTetris.tsx",
+          "frontend/src/components/games/ColtBreakout.tsx",
+          "frontend/src/components/games/ColtAsteroids.tsx",
+          "frontend/src/components/games/ColtRacer.tsx",
+          "frontend/src/components/tabs/GamesTab.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/components/games/ColtAsteroids.tsx",
+    "frontend/src/components/games/ColtBreakout.tsx",
+    "frontend/src/components/games/ColtPong.tsx",
+    "frontend/src/components/games/ColtRacer.tsx",
+    "frontend/src/components/games/ColtTetris.tsx",
+    "frontend/src/components/tabs/GamesTab.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

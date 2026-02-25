@@ -1,0 +1,21 @@
+{
+  "frontend/src/index.css": "Global styles with dark neon theme using OKLCH color system, Orbitron/Rajdhani fonts, glassmorphism utilities, custom cursor hiding, neon glow effects, and animation keyframes.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with Orbitron/Rajdhani font families, neon color tokens (cyan/green/purple/pink), neon box-shadow utilities, and custom animations.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for loading/saving user preferences and notepad content from/to the Motoko backend, including `useGetPreferences`, `useSavePreferences`, and the new `useSaveNotepad` mutation.",
+  "frontend/src/components/AnimatedBackground.tsx": "Canvas-based animated background with floating particles, connecting lines, and a subtle grid pattern rendered as a fixed backdrop.",
+  "frontend/src/components/CustomCursor.tsx": "Custom cursor component with a glowing dot, trailing ring, and subtle trail that changes color/scale on hover over interactive elements.",
+  "frontend/src/components/GlassCard.tsx": "Reusable glassmorphism card component with frosted-glass styling, optional hover/neon effects, and now accepts an optional `style` prop for inline styles.",
+  "frontend/src/components/Header.tsx": "App header with Colt UI branding, tab navigation (Games/Proxy/Music/More) with active neon underline indicator, and online status badge.",
+  "frontend/src/components/tabs/GamesTab.tsx": "Games tab displaying a 7-game grid (Flappy Colt, Neon Snake, plus 5 new Colt-themed spinoffs) as GlassCards with correct `hoverable` and `neonColor` props; clicking a card launches the selected game in full-screen view with a back button.",
+  "frontend/src/components/games/FlappyColt.tsx": "Canvas-based Flappy Bird spinoff with neon-styled bird, gravity physics, scrolling pipe obstacles, score tracking, and game over/restart flow.",
+  "frontend/src/components/games/SnakeGame.tsx": "Canvas-based Snake game with neon visuals, arrow key controls, food collection, collision detection, score tracking, and restart functionality.",
+  "frontend/src/components/tabs/ProxyTab.tsx": "Proxy tab with URL input bar, quick links, and an iframe that loads the entered URL; includes loading state and error handling for blocked sites.",
+  "frontend/src/components/tabs/MusicTab.tsx": "Music tab with a curated list of 6 track cards and an embedded YouTube player that loads when a track is selected.",
+  "frontend/src/components/tabs/MoreTab.tsx": "More tab with About, Settings, and four fully functional widgets — Clock & Stopwatch (live time + rAF-based stopwatch), Notepad (auto-save with debounce + backend persistence), Keyboard Shortcuts reference panel, and Fullscreen toggle — all styled with GlassCard and the neon/glassmorphism theme.",
+  "frontend/src/App.tsx": "Root app component managing active tab state, accent color theming, backend preference persistence, animated tab transitions, custom cursor, and footer.",
+  "frontend/src/components/games/ColtPong.tsx": "Canvas-based Pong spinoff with mouse/keyboard-controlled player paddle, CPU AI opponent, neon magenta/cyan visual styling, ball physics with collision detection, score tracking (first to 7 wins), and restart mechanic.",
+  "frontend/src/components/games/ColtTetris.tsx": "Canvas-based Tetris spinoff with falling neon tetrominoes, grid board, keyboard controls (arrow keys + space for hard drop), line-clearing logic, ghost piece preview, score/lines tracking, increasing speed, and restart mechanic.",
+  "frontend/src/components/games/ColtBreakout.tsx": "Canvas-based Breakout/Arkanoid spinoff with mouse/keyboard paddle control, bouncing ball, destructible neon brick grid, 3 lives, score tracking, win/lose states, and restart mechanic.",
+  "frontend/src/components/games/ColtAsteroids.tsx": "Canvas-based Asteroids spinoff with keyboard-controlled ship (rotate/thrust/shoot), spawning neon asteroid waves, bullet collision, asteroid splitting, lives system, score tracking, and restart mechanic.",
+  "frontend/src/components/games/ColtRacer.tsx": "Canvas-based endless lane-dodging racer with keyboard/click controls, scrolling neon traffic obstacles, increasing speed, distance score counter, animated car sprites, and restart mechanic."
+}

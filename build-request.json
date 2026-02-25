@@ -1,0 +1,47 @@
+{
+  "kind": "build_request",
+  "title": "Add 5 new Colt-themed game spinoffs to the Games tab",
+  "projectName": "Colt UI",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "text": "Add 5 new playable browser games to the Games tab, each built on a canvas with the existing neon/cyberpunk aesthetic and matching the GlassCard grid layout in GamesTab.tsx. The games must be: (1) Colt Pong — a Pong variant where the player controls a paddle against a CPU opponent; (2) Colt Tetris — a Tetris variant with falling neon-colored tetrominoes; (3) Colt Breakout — a Breakout/Arkanoid variant with a paddle, ball, and destructible neon blocks; (4) Colt Asteroids — a top-down shooter where the player shoots neon asteroids; (5) Colt Racer — a top-down endless lane-dodging racer. Each game must have a score counter and a restart mechanic. All five games must be selectable from the existing GamesTab game grid and open in the full-screen game view with a back button, consistent with how Flappy Colt and Neon Snake are currently displayed.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "could you add more games like 5 of spinoffs of other games but make sure it has the word colt in it"
+        ]
+      },
+      "acceptanceCriteria": [
+        "GamesTab displays a card for each of the 5 new games: Colt Pong, Colt Tetris, Colt Breakout, Colt Asteroids, and Colt Racer.",
+        "Each game card is a GlassCard with the game name and a brief description, consistent with the existing Flappy Colt and Neon Snake cards.",
+        "Clicking a game card opens the game in the full-screen game view inside GamesTab with a visible back button.",
+        "All 5 games are fully playable with keyboard or mouse/click controls.",
+        "Every game has a live score counter visible during gameplay.",
+        "Every game has a restart mechanic (button or key press) that resets the game state.",
+        "All games use the existing neon/cyberpunk canvas aesthetic (dark background, glowing neon colors, matching the existing game style).",
+        "The word 'Colt' appears in the name of every new game.",
+        "No regressions to Flappy Colt or Neon Snake gameplay or navigation."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui.",
+    "New game components must follow the same canvas-based pattern used in FlappyColt.tsx and SnakeGame.tsx.",
+    "All new games must be wired into GamesTab.tsx without altering the existing tab navigation or header."
+  ],
+  "nonGoals": [
+    "No backend changes required for this feature.",
+    "No multiplayer or networked game features.",
+    "No changes to the Proxy, Music, or More tabs.",
+    "No new tabs or navigation items."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
