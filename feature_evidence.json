@@ -2,15 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-5-new-playable-browser-games-to-the-games-tab-each-built-on-a-canvas-with-the-existing-neon-cyberpunk-aesthetic-and-matching-the-glasscard-grid-layout-in-gamestab-tsx-the-games-must-be-1-colt-pong-a-pong-variant-where-the-player-controls-a-paddle-against-a-cpu-opponent-2-colt-tetris-a-tetris-variant-with-falling-neon-colored-tetrominoes-3-colt-breakout-a-breakout-arkanoid-variant-with-a-paddle-ball-and-destructible-neon-blocks-4-colt-asteroids-a-top-down-shooter-where-the-player-shoots-neon-asteroids-5-colt-racer-a-top-down-endless-lane-dodging-racer-each-game-must-have-a-score-counter-and-a-restart-mechanic-all-five-games-must-be-selectable-from-the-existing-gamestab-game-grid-and-open-in-the-full-screen-game-view-with-a-back-button-consistent-with-how-flappy-colt-and-neon-snake-are-currently-displayed",
-      "featureTitle": "Add 5 new playable browser games to the Games tab, each built on a canvas with the existing neon/cyberpunk aesthetic and matching the GlassCard grid layout in GamesTab.tsx. The games must be: (1) Colt Pong — a Pong variant where the player controls a paddle against a CPU opponent; (2) Colt Tetris — a Tetris variant with falling neon-colored tetrominoes; (3) Colt Breakout — a Breakout/Arkanoid variant with a paddle, ball, and destructible neon blocks; (4) Colt Asteroids — a top-down shooter where the player shoots neon asteroids; (5) Colt Racer — a top-down endless lane-dodging racer. Each game must have a score counter and a restart mechanic. All five games must be selectable from the existing GamesTab game grid and open in the full-screen game view with a back button, consistent with how Flappy Colt and Neon Snake are currently displayed.",
+      "featureId": "feature-redesign-the-proxy-tab-proxytab-tsx-to-feature-a-centered-google-style-landing-layout-when-no-url-is-loaded-display-a-prominent-logo-area-in-the-center-of-the-page-a-neon-styled-icon-or-emblem-with-the-text-colt-ui-displayed-next-to-it-inline-on-the-same-line-below-the-logo-render-a-wide-prominent-search-url-input-bar-styled-like-google-s-search-bar-but-matching-the-existing-dark-neon-cyberpunk-aesthetic-glassmorphism-neon-glow-border-on-focus-the-bar-should-include-a-go-or-submit-button-inline-or-beneath-it-once-a-url-is-submitted-and-loaded-the-iframe-fills-the-tab-content-area-as-before-with-the-status-bar-showing-the-current-proxied-url-the-centered-landing-layout-is-only-shown-when-no-url-is-currently-loaded",
+      "featureTitle": "Redesign the Proxy tab (ProxyTab.tsx) to feature a centered Google-style landing layout when no URL is loaded. Display a prominent logo area in the center of the page: a neon-styled icon or emblem with the text 'Colt UI' displayed next to it (inline, on the same line). Below the logo, render a wide, prominent search/URL input bar styled like Google's search bar but matching the existing dark neon/cyberpunk aesthetic (glassmorphism, neon glow border on focus). The bar should include a 'Go' or submit button inline or beneath it. Once a URL is submitted and loaded, the iframe fills the tab content area as before, with the status bar showing the current proxied URL. The centered landing layout is only shown when no URL is currently loaded.",
       "files": [
-        "frontend/src/components/games/ColtAsteroids.tsx",
-        "frontend/src/components/games/ColtBreakout.tsx",
-        "frontend/src/components/games/ColtPong.tsx",
-        "frontend/src/components/games/ColtRacer.tsx",
-        "frontend/src/components/games/ColtTetris.tsx",
-        "frontend/src/components/tabs/GamesTab.tsx"
+        "frontend/src/components/tabs/ProxyTab.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -21,7 +16,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-15"
+        "REQ-16"
       ],
       "confidence": "high"
     }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "Colt UI is a stylish web app with cool visual effects, a custom cursor, and tabbed navigation. It includes a built-in web proxy, a games section (featuring a Flappy Bird spinoff), a music tab, and additional sections. The design is simple but visually engaging.",
   "architectural_notes": [
     "Project name: Colt UI",
@@ -121,6 +121,14 @@
         "REQ-15"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-redesign-the-proxy-tab-proxytab-tsx-to-feature-a-centered-google-style-landing-layout-when-no-url-is-loaded-display-a-prominent-logo-area-in-the-center-of-the-page-a-neon-styled-icon-or-emblem-with-the-text-colt-ui-displayed-next-to-it-inline-on-the-same-line-below-the-logo-render-a-wide-prominent-search-url-input-bar-styled-like-google-s-search-bar-but-matching-the-existing-dark-neon-cyberpunk-aesthetic-glassmorphism-neon-glow-border-on-focus-the-bar-should-include-a-go-or-submit-button-inline-or-beneath-it-once-a-url-is-submitted-and-loaded-the-iframe-fills-the-tab-content-area-as-before-with-the-status-bar-showing-the-current-proxied-url-the-centered-landing-layout-is-only-shown-when-no-url-is-currently-loaded",
+      "title": "Redesign the Proxy tab (ProxyTab.tsx) to feature a centered Google-style landing layout when no URL is loaded. Display a prominent logo area in the center of the page: a neon-styled icon or emblem with the text 'Colt UI' displayed next to it (inline, on the same line). Below the logo, render a wide, prominent search/URL input bar styled like Google's search bar but matching the existing dark neon/cyberpunk aesthetic (glassmorphism, neon glow border on focus). The bar should include a 'Go' or submit button inline or beneath it. Once a URL is submitted and loaded, the iframe fills the tab content area as before, with the status bar showing the current proxied URL. The centered landing layout is only shown when no URL is currently loaded.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -171,6 +179,12 @@
     {
       "id": "AR-13",
       "summary": "Add 5 more game spinoffs to the Games tab, each with 'Colt' in the name (e.g., Colt Snake, Colt Pong, Colt Tetris, Colt Breakout, Colt Asteroids) — all playable browser games matching the existing neon/cyberpunk theme.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Redesign the Proxy tab to have a Google-style layout: a centered logo with 'Colt UI' text next to it, and a prominent search/URL bar underneath the logo.",
       "reqIds": [],
       "status": "pending"
     }

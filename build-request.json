@@ -1,44 +1,40 @@
 {
   "kind": "build_request",
-  "title": "Add 5 new Colt-themed game spinoffs to the Games tab",
+  "title": "Redesign Proxy Tab with Google-style layout",
   "projectName": "Colt UI",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-15",
-      "text": "Add 5 new playable browser games to the Games tab, each built on a canvas with the existing neon/cyberpunk aesthetic and matching the GlassCard grid layout in GamesTab.tsx. The games must be: (1) Colt Pong — a Pong variant where the player controls a paddle against a CPU opponent; (2) Colt Tetris — a Tetris variant with falling neon-colored tetrominoes; (3) Colt Breakout — a Breakout/Arkanoid variant with a paddle, ball, and destructible neon blocks; (4) Colt Asteroids — a top-down shooter where the player shoots neon asteroids; (5) Colt Racer — a top-down endless lane-dodging racer. Each game must have a score counter and a restart mechanic. All five games must be selectable from the existing GamesTab game grid and open in the full-screen game view with a back button, consistent with how Flappy Colt and Neon Snake are currently displayed.",
+      "id": "REQ-16",
+      "text": "Redesign the Proxy tab (ProxyTab.tsx) to feature a centered Google-style landing layout when no URL is loaded. Display a prominent logo area in the center of the page: a neon-styled icon or emblem with the text 'Colt UI' displayed next to it (inline, on the same line). Below the logo, render a wide, prominent search/URL input bar styled like Google's search bar but matching the existing dark neon/cyberpunk aesthetic (glassmorphism, neon glow border on focus). The bar should include a 'Go' or submit button inline or beneath it. Once a URL is submitted and loaded, the iframe fills the tab content area as before, with the status bar showing the current proxied URL. The centered landing layout is only shown when no URL is currently loaded.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "could you add more games like 5 of spinoffs of other games but make sure it has the word colt in it"
+          "could you give the proxy tab more like a google layout like a search bar underneath the logo and next to the logo says colt ui"
         ]
       },
       "acceptanceCriteria": [
-        "GamesTab displays a card for each of the 5 new games: Colt Pong, Colt Tetris, Colt Breakout, Colt Asteroids, and Colt Racer.",
-        "Each game card is a GlassCard with the game name and a brief description, consistent with the existing Flappy Colt and Neon Snake cards.",
-        "Clicking a game card opens the game in the full-screen game view inside GamesTab with a visible back button.",
-        "All 5 games are fully playable with keyboard or mouse/click controls.",
-        "Every game has a live score counter visible during gameplay.",
-        "Every game has a restart mechanic (button or key press) that resets the game state.",
-        "All games use the existing neon/cyberpunk canvas aesthetic (dark background, glowing neon colors, matching the existing game style).",
-        "The word 'Colt' appears in the name of every new game.",
-        "No regressions to Flappy Colt or Neon Snake gameplay or navigation."
+        "When the Proxy tab has no active URL loaded, the tab displays a centered layout with a logo/emblem and 'Colt UI' text displayed inline next to it.",
+        "A wide, prominent URL/search input bar is rendered below the logo, visually similar to Google's search bar but styled with the existing neon cyberpunk theme (glassmorphism card, neon glow on focus).",
+        "Submitting a URL via the search bar loads the target URL in an iframe that fills the content area, consistent with the existing proxy behavior.",
+        "A status bar showing the current proxied URL is visible when an iframe is loaded.",
+        "The centered landing layout is hidden once a URL is actively loaded in the iframe.",
+        "The design matches the existing dark neon/cyberpunk aesthetic used throughout Colt UI."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui.",
-    "New game components must follow the same canvas-based pattern used in FlappyColt.tsx and SnakeGame.tsx.",
-    "All new games must be wired into GamesTab.tsx without altering the existing tab navigation or header."
+    "Do not modify any files listed under frontend.immutablePaths.",
+    "Preserve all existing proxy iframe loading and error-handling logic; only change the layout and visual presentation."
   ],
   "nonGoals": [
-    "No backend changes required for this feature.",
-    "No multiplayer or networked game features.",
-    "No changes to the Proxy, Music, or More tabs.",
-    "No new tabs or navigation items."
+    "Adding a real search engine integration or Google API calls.",
+    "Changing the proxy iframe behavior or URL-fetching mechanism.",
+    "Modifying any other tab (Games, Music, More).",
+    "Backend changes."
   ],
   "imageRequirements": {
     "required": [],
