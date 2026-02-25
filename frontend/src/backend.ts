@@ -89,13 +89,62 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Preferences {
+    cursorStyle: CursorStyle;
+    lastActiveTab: string;
+    fontStyle: FontStyle;
+    backgroundStyle: BackgroundStyle;
+    notepad: string;
+    cloakPreset: TabCloakPreset;
+    accentColor: string;
+}
+export interface _CaffeineStorageRefillInformation {
+    proposed_top_up_amount?: bigint;
+}
+export interface _CaffeineStorageCreateCertificateResult {
+    method: string;
+    blob_hash: string;
+}
 export interface UserProfile {
     name: string;
 }
-export interface Preferences {
-    lastActiveTab: string;
-    notepad: string;
-    accentColor: string;
+export interface _CaffeineStorageRefillResult {
+    success?: boolean;
+    topped_up_amount?: bigint;
+}
+export enum BackgroundStyle {
+    starfield = "starfield",
+    spaceNebula = "spaceNebula",
+    darkOcean = "darkOcean",
+    matrixCode = "matrixCode",
+    cyberForest = "cyberForest",
+    abstractGlitch = "abstractGlitch",
+    solidDark = "solidDark",
+    particleGrid = "particleGrid",
+    neonCity = "neonCity",
+    neonRain = "neonRain",
+    cyberHexGrid = "cyberHexGrid"
+}
+export enum CursorStyle {
+    arrowGlow = "arrowGlow",
+    starBurst = "starBurst",
+    neonDot = "neonDot",
+    crosshair = "crosshair",
+    ringPulse = "ringPulse"
+}
+export enum FontStyle {
+    orbitron = "orbitron",
+    sansSerif = "sansSerif",
+    monospace = "monospace",
+    rajdhani = "rajdhani",
+    pressStart2P = "pressStart2P"
+}
+export enum TabCloakPreset {
+    clever = "clever",
+    google = "google",
+    default_ = "default",
+    youtube = "youtube",
+    googleClassroom = "googleClassroom"
 }
 export enum UserRole {
     admin = "admin",
@@ -103,20 +152,115 @@ export enum UserRole {
     guest = "guest"
 }
 export interface backendInterface {
+    _caffeineStorageBlobIsLive(hash: Uint8Array): Promise<boolean>;
+    _caffeineStorageBlobsToDelete(): Promise<Array<Uint8Array>>;
+    _caffeineStorageConfirmBlobDeletion(blobs: Array<Uint8Array>): Promise<void>;
+    _caffeineStorageCreateCertificate(blobHash: string): Promise<_CaffeineStorageCreateCertificateResult>;
+    _caffeineStorageRefillCashier(refillInformation: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult>;
+    _caffeineStorageUpdateGatewayPrincipals(): Promise<void>;
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
+    addCCoins(amount: bigint): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    getCCoins(): Promise<bigint>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getPreferences(): Promise<Preferences>;
+    getPurchasedEffects(): Promise<Array<string>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     saveNotepad(notepad: string): Promise<void>;
-    savePreferences(lastActiveTab: string, accentColor: string): Promise<void>;
+    savePreferences(lastActiveTab: string, accentColor: string, cursorStyle: CursorStyle, backgroundStyle: BackgroundStyle, fontStyle: FontStyle, cloakPreset: TabCloakPreset): Promise<void>;
+    setPurchasedEffects(effects: Array<string>): Promise<void>;
+    spendCCoins(amount: bigint): Promise<boolean>;
 }
-import type { UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
+import type { BackgroundStyle as _BackgroundStyle, CursorStyle as _CursorStyle, FontStyle as _FontStyle, Preferences as _Preferences, TabCloakPreset as _TabCloakPreset, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageBlobIsLive(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageBlobIsLive(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageBlobsToDelete(): Promise<Array<Uint8Array>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageBlobsToDelete();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageBlobsToDelete();
+            return result;
+        }
+    }
+    async _caffeineStorageConfirmBlobDeletion(arg0: Array<Uint8Array>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageConfirmBlobDeletion(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageConfirmBlobDeletion(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageCreateCertificate(arg0: string): Promise<_CaffeineStorageCreateCertificateResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageCreateCertificate(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageCreateCertificate(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageRefillCashier(arg0: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageRefillCashier(to_candid_opt_n1(this._uploadFile, this._downloadFile, arg0));
+                return from_candid__CaffeineStorageRefillResult_n4(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageRefillCashier(to_candid_opt_n1(this._uploadFile, this._downloadFile, arg0));
+            return from_candid__CaffeineStorageRefillResult_n4(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async _caffeineStorageUpdateGatewayPrincipals(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageUpdateGatewayPrincipals();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageUpdateGatewayPrincipals();
+            return result;
+        }
+    }
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
         if (this.processError) {
             try {
@@ -131,17 +275,45 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
+    async addCCoins(arg0: bigint): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
+                const result = await this.actor.addCCoins(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
+            const result = await this.actor.addCCoins(arg0);
+            return result;
+        }
+    }
+    async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n8(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n8(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async getCCoins(): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCCoins();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCCoins();
             return result;
         }
     }
@@ -149,41 +321,55 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getCallerUserProfile();
-                return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCallerUserProfile();
-            return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
         }
     }
     async getCallerUserRole(): Promise<UserRole> {
         if (this.processError) {
             try {
                 const result = await this.actor.getCallerUserRole();
-                return from_candid_UserRole_n4(this._uploadFile, this._downloadFile, result);
+                return from_candid_UserRole_n11(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCallerUserRole();
-            return from_candid_UserRole_n4(this._uploadFile, this._downloadFile, result);
+            return from_candid_UserRole_n11(this._uploadFile, this._downloadFile, result);
         }
     }
     async getPreferences(): Promise<Preferences> {
         if (this.processError) {
             try {
                 const result = await this.actor.getPreferences();
-                return result;
+                return from_candid_Preferences_n13(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getPreferences();
+            return from_candid_Preferences_n13(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getPurchasedEffects(): Promise<Array<string>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getPurchasedEffects();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getPurchasedEffects();
             return result;
         }
     }
@@ -191,14 +377,14 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getUserProfile(arg0);
-                return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getUserProfile(arg0);
-            return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
         }
     }
     async isCallerAdmin(): Promise<boolean> {
@@ -243,28 +429,119 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async savePreferences(arg0: string, arg1: string): Promise<void> {
+    async savePreferences(arg0: string, arg1: string, arg2: CursorStyle, arg3: BackgroundStyle, arg4: FontStyle, arg5: TabCloakPreset): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.savePreferences(arg0, arg1);
+                const result = await this.actor.savePreferences(arg0, arg1, to_candid_CursorStyle_n23(this._uploadFile, this._downloadFile, arg2), to_candid_BackgroundStyle_n25(this._uploadFile, this._downloadFile, arg3), to_candid_FontStyle_n27(this._uploadFile, this._downloadFile, arg4), to_candid_TabCloakPreset_n29(this._uploadFile, this._downloadFile, arg5));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.savePreferences(arg0, arg1);
+            const result = await this.actor.savePreferences(arg0, arg1, to_candid_CursorStyle_n23(this._uploadFile, this._downloadFile, arg2), to_candid_BackgroundStyle_n25(this._uploadFile, this._downloadFile, arg3), to_candid_FontStyle_n27(this._uploadFile, this._downloadFile, arg4), to_candid_TabCloakPreset_n29(this._uploadFile, this._downloadFile, arg5));
+            return result;
+        }
+    }
+    async setPurchasedEffects(arg0: Array<string>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setPurchasedEffects(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setPurchasedEffects(arg0);
+            return result;
+        }
+    }
+    async spendCCoins(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.spendCCoins(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.spendCCoins(arg0);
             return result;
         }
     }
 }
-function from_candid_UserRole_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
-    return from_candid_variant_n5(_uploadFile, _downloadFile, value);
+function from_candid_BackgroundStyle_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _BackgroundStyle): BackgroundStyle {
+    return from_candid_variant_n20(_uploadFile, _downloadFile, value);
 }
-function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
+function from_candid_CursorStyle_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CursorStyle): CursorStyle {
+    return from_candid_variant_n16(_uploadFile, _downloadFile, value);
+}
+function from_candid_FontStyle_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _FontStyle): FontStyle {
+    return from_candid_variant_n18(_uploadFile, _downloadFile, value);
+}
+function from_candid_Preferences_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Preferences): Preferences {
+    return from_candid_record_n14(_uploadFile, _downloadFile, value);
+}
+function from_candid_TabCloakPreset_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _TabCloakPreset): TabCloakPreset {
+    return from_candid_variant_n22(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserRole_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
+    return from_candid_variant_n12(_uploadFile, _downloadFile, value);
+}
+function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: __CaffeineStorageRefillResult): _CaffeineStorageRefillResult {
+    return from_candid_record_n5(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    cursorStyle: _CursorStyle;
+    lastActiveTab: string;
+    fontStyle: _FontStyle;
+    backgroundStyle: _BackgroundStyle;
+    notepad: string;
+    cloakPreset: _TabCloakPreset;
+    accentColor: string;
+}): {
+    cursorStyle: CursorStyle;
+    lastActiveTab: string;
+    fontStyle: FontStyle;
+    backgroundStyle: BackgroundStyle;
+    notepad: string;
+    cloakPreset: TabCloakPreset;
+    accentColor: string;
+} {
+    return {
+        cursorStyle: from_candid_CursorStyle_n15(_uploadFile, _downloadFile, value.cursorStyle),
+        lastActiveTab: value.lastActiveTab,
+        fontStyle: from_candid_FontStyle_n17(_uploadFile, _downloadFile, value.fontStyle),
+        backgroundStyle: from_candid_BackgroundStyle_n19(_uploadFile, _downloadFile, value.backgroundStyle),
+        notepad: value.notepad,
+        cloakPreset: from_candid_TabCloakPreset_n21(_uploadFile, _downloadFile, value.cloakPreset),
+        accentColor: value.accentColor
+    };
+}
+function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    success: [] | [boolean];
+    topped_up_amount: [] | [bigint];
+}): {
+    success?: boolean;
+    topped_up_amount?: bigint;
+} {
+    return {
+        success: record_opt_to_undefined(from_candid_opt_n6(_uploadFile, _downloadFile, value.success)),
+        topped_up_amount: record_opt_to_undefined(from_candid_opt_n7(_uploadFile, _downloadFile, value.topped_up_amount))
+    };
+}
+function from_candid_variant_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     admin: null;
 } | {
     user: null;
@@ -273,10 +550,217 @@ function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uin
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
-function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
-    return to_candid_variant_n2(_uploadFile, _downloadFile, value);
+function from_candid_variant_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    arrowGlow: null;
+} | {
+    starBurst: null;
+} | {
+    neonDot: null;
+} | {
+    crosshair: null;
+} | {
+    ringPulse: null;
+}): CursorStyle {
+    return "arrowGlow" in value ? CursorStyle.arrowGlow : "starBurst" in value ? CursorStyle.starBurst : "neonDot" in value ? CursorStyle.neonDot : "crosshair" in value ? CursorStyle.crosshair : "ringPulse" in value ? CursorStyle.ringPulse : value;
 }
-function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
+function from_candid_variant_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    orbitron: null;
+} | {
+    sansSerif: null;
+} | {
+    monospace: null;
+} | {
+    rajdhani: null;
+} | {
+    pressStart2P: null;
+}): FontStyle {
+    return "orbitron" in value ? FontStyle.orbitron : "sansSerif" in value ? FontStyle.sansSerif : "monospace" in value ? FontStyle.monospace : "rajdhani" in value ? FontStyle.rajdhani : "pressStart2P" in value ? FontStyle.pressStart2P : value;
+}
+function from_candid_variant_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    starfield: null;
+} | {
+    spaceNebula: null;
+} | {
+    darkOcean: null;
+} | {
+    matrixCode: null;
+} | {
+    cyberForest: null;
+} | {
+    abstractGlitch: null;
+} | {
+    solidDark: null;
+} | {
+    particleGrid: null;
+} | {
+    neonCity: null;
+} | {
+    neonRain: null;
+} | {
+    cyberHexGrid: null;
+}): BackgroundStyle {
+    return "starfield" in value ? BackgroundStyle.starfield : "spaceNebula" in value ? BackgroundStyle.spaceNebula : "darkOcean" in value ? BackgroundStyle.darkOcean : "matrixCode" in value ? BackgroundStyle.matrixCode : "cyberForest" in value ? BackgroundStyle.cyberForest : "abstractGlitch" in value ? BackgroundStyle.abstractGlitch : "solidDark" in value ? BackgroundStyle.solidDark : "particleGrid" in value ? BackgroundStyle.particleGrid : "neonCity" in value ? BackgroundStyle.neonCity : "neonRain" in value ? BackgroundStyle.neonRain : "cyberHexGrid" in value ? BackgroundStyle.cyberHexGrid : value;
+}
+function from_candid_variant_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    clever: null;
+} | {
+    google: null;
+} | {
+    default: null;
+} | {
+    youtube: null;
+} | {
+    googleClassroom: null;
+}): TabCloakPreset {
+    return "clever" in value ? TabCloakPreset.clever : "google" in value ? TabCloakPreset.google : "default" in value ? TabCloakPreset.default : "youtube" in value ? TabCloakPreset.youtube : "googleClassroom" in value ? TabCloakPreset.googleClassroom : value;
+}
+function to_candid_BackgroundStyle_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: BackgroundStyle): _BackgroundStyle {
+    return to_candid_variant_n26(_uploadFile, _downloadFile, value);
+}
+function to_candid_CursorStyle_n23(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: CursorStyle): _CursorStyle {
+    return to_candid_variant_n24(_uploadFile, _downloadFile, value);
+}
+function to_candid_FontStyle_n27(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: FontStyle): _FontStyle {
+    return to_candid_variant_n28(_uploadFile, _downloadFile, value);
+}
+function to_candid_TabCloakPreset_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: TabCloakPreset): _TabCloakPreset {
+    return to_candid_variant_n30(_uploadFile, _downloadFile, value);
+}
+function to_candid_UserRole_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
+    return to_candid_variant_n9(_uploadFile, _downloadFile, value);
+}
+function to_candid__CaffeineStorageRefillInformation_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation): __CaffeineStorageRefillInformation {
+    return to_candid_record_n3(_uploadFile, _downloadFile, value);
+}
+function to_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation | null): [] | [__CaffeineStorageRefillInformation] {
+    return value === null ? candid_none() : candid_some(to_candid__CaffeineStorageRefillInformation_n2(_uploadFile, _downloadFile, value));
+}
+function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    proposed_top_up_amount?: bigint;
+}): {
+    proposed_top_up_amount: [] | [bigint];
+} {
+    return {
+        proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
+    };
+}
+function to_candid_variant_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: CursorStyle): {
+    arrowGlow: null;
+} | {
+    starBurst: null;
+} | {
+    neonDot: null;
+} | {
+    crosshair: null;
+} | {
+    ringPulse: null;
+} {
+    return value == CursorStyle.arrowGlow ? {
+        arrowGlow: null
+    } : value == CursorStyle.starBurst ? {
+        starBurst: null
+    } : value == CursorStyle.neonDot ? {
+        neonDot: null
+    } : value == CursorStyle.crosshair ? {
+        crosshair: null
+    } : value == CursorStyle.ringPulse ? {
+        ringPulse: null
+    } : value;
+}
+function to_candid_variant_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: BackgroundStyle): {
+    starfield: null;
+} | {
+    spaceNebula: null;
+} | {
+    darkOcean: null;
+} | {
+    matrixCode: null;
+} | {
+    cyberForest: null;
+} | {
+    abstractGlitch: null;
+} | {
+    solidDark: null;
+} | {
+    particleGrid: null;
+} | {
+    neonCity: null;
+} | {
+    neonRain: null;
+} | {
+    cyberHexGrid: null;
+} {
+    return value == BackgroundStyle.starfield ? {
+        starfield: null
+    } : value == BackgroundStyle.spaceNebula ? {
+        spaceNebula: null
+    } : value == BackgroundStyle.darkOcean ? {
+        darkOcean: null
+    } : value == BackgroundStyle.matrixCode ? {
+        matrixCode: null
+    } : value == BackgroundStyle.cyberForest ? {
+        cyberForest: null
+    } : value == BackgroundStyle.abstractGlitch ? {
+        abstractGlitch: null
+    } : value == BackgroundStyle.solidDark ? {
+        solidDark: null
+    } : value == BackgroundStyle.particleGrid ? {
+        particleGrid: null
+    } : value == BackgroundStyle.neonCity ? {
+        neonCity: null
+    } : value == BackgroundStyle.neonRain ? {
+        neonRain: null
+    } : value == BackgroundStyle.cyberHexGrid ? {
+        cyberHexGrid: null
+    } : value;
+}
+function to_candid_variant_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: FontStyle): {
+    orbitron: null;
+} | {
+    sansSerif: null;
+} | {
+    monospace: null;
+} | {
+    rajdhani: null;
+} | {
+    pressStart2P: null;
+} {
+    return value == FontStyle.orbitron ? {
+        orbitron: null
+    } : value == FontStyle.sansSerif ? {
+        sansSerif: null
+    } : value == FontStyle.monospace ? {
+        monospace: null
+    } : value == FontStyle.rajdhani ? {
+        rajdhani: null
+    } : value == FontStyle.pressStart2P ? {
+        pressStart2P: null
+    } : value;
+}
+function to_candid_variant_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: TabCloakPreset): {
+    clever: null;
+} | {
+    google: null;
+} | {
+    default: null;
+} | {
+    youtube: null;
+} | {
+    googleClassroom: null;
+} {
+    return value == TabCloakPreset.clever ? {
+        clever: null
+    } : value == TabCloakPreset.google ? {
+        google: null
+    } : value == TabCloakPreset.default ? {
+        default_: null
+    } : value == TabCloakPreset.youtube ? {
+        youtube: null
+    } : value == TabCloakPreset.googleClassroom ? {
+        googleClassroom: null
+    } : value;
+}
+function to_candid_variant_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
     admin: null;
 } | {
     user: null;

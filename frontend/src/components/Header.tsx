@@ -3,75 +3,73 @@ import React from 'react';
 interface HeaderProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  vipOwned?: boolean;
 }
 
-const tabs = [
-  { id: 'games', label: 'GAMES', icon: '🎮' },
-  { id: 'proxy', label: 'PROXY', icon: '🌐' },
-  { id: 'music', label: 'MUSIC', icon: '🎵' },
-  { id: 'more', label: 'MORE', icon: '⚡' },
+const TABS = [
+  { id: 'games', label: '🎮 Games' },
+  { id: 'proxy', label: '🌐 Proxy' },
+  { id: 'music', label: '🎵 Music' },
+  { id: 'colt-ai', label: '🤖 Colt AI' },
+  { id: 'store', label: '🛒 Store' },
+  { id: 'more', label: '⚙️ More' },
 ];
 
-const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
+export default function Header({ activeTab, onTabChange, vipOwned }: HeaderProps) {
   return (
-    <header className="relative z-50 glass border-b border-border/50">
-      <div className="flex items-center justify-between px-6 py-3">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <div className="w-8 h-8 rounded border border-neon-cyan flex items-center justify-center"
-              style={{ boxShadow: '0 0 10px oklch(0.78 0.22 195), inset 0 0 10px oklch(0.78 0.22 195 / 0.1)' }}>
-              <span className="text-neon-cyan font-display text-xs font-bold">C</span>
+    <header className="glass-card border-b border-white/10 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          {/* Logo */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <div
+              className="w-[42px] h-[42px] rounded-full flex items-center justify-center font-black text-xl text-neon-cyan border-2 border-neon-cyan/60"
+              style={{ boxShadow: '0 0 12px rgba(0,255,255,0.4), inset 0 0 8px rgba(0,255,255,0.1)' }}
+            >
+              C
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-white font-bold text-lg tracking-widest">COLT UI</span>
+              {vipOwned && (
+                <span
+                  className="text-xs px-2 py-0.5 rounded-full font-bold"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(234,179,8,0.3), rgba(251,191,36,0.2))',
+                    border: '1px solid rgba(234,179,8,0.5)',
+                    color: '#fbbf24',
+                    textShadow: '0 0 8px rgba(234,179,8,0.6)',
+                  }}
+                >
+                  👑 VIP
+                </span>
+              )}
             </div>
           </div>
-          <div>
-            <h1 className="font-display text-xl font-bold tracking-widest neon-text">
-              COLT UI
-            </h1>
-            <p className="text-xs text-muted-foreground tracking-wider font-body" style={{ fontSize: '9px' }}>
-              ENTERTAINMENT HUB
-            </p>
+
+          {/* Tabs */}
+          <nav className="flex items-center gap-1 flex-wrap">
+            {TABS.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => onTabChange(tab.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:scale-105 ${
+                  activeTab === tab.id
+                    ? 'bg-neon-cyan/20 border border-neon-cyan/50 text-neon-cyan'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10 border border-transparent'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Status */}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
+            <span className="text-xs text-gray-400">Online</span>
           </div>
-        </div>
-
-        {/* Navigation Tabs */}
-        <nav className="flex items-center gap-1">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={`
-                relative px-5 py-2 font-display text-xs tracking-widest transition-all duration-300
-                ${activeTab === tab.id
-                  ? 'text-neon-cyan'
-                  : 'text-muted-foreground hover:text-foreground'
-                }
-              `}
-            >
-              <span className="hidden sm:inline mr-1">{tab.icon}</span>
-              {tab.label}
-              {activeTab === tab.id && (
-                <span
-                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                  style={{
-                    background: 'oklch(0.78 0.22 195)',
-                    boxShadow: '0 0 8px oklch(0.78 0.22 195)',
-                  }}
-                />
-              )}
-            </button>
-          ))}
-        </nav>
-
-        {/* Status indicator */}
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse-neon"
-            style={{ boxShadow: '0 0 6px oklch(0.82 0.22 145)' }} />
-          <span className="text-xs text-muted-foreground font-body tracking-wider hidden sm:block">ONLINE</span>
         </div>
       </div>
     </header>
   );
-};
-
-export default Header;
+}

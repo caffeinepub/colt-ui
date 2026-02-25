@@ -2,10 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-redesign-the-proxy-tab-proxytab-tsx-to-feature-a-centered-google-style-landing-layout-when-no-url-is-loaded-display-a-prominent-logo-area-in-the-center-of-the-page-a-neon-styled-icon-or-emblem-with-the-text-colt-ui-displayed-next-to-it-inline-on-the-same-line-below-the-logo-render-a-wide-prominent-search-url-input-bar-styled-like-google-s-search-bar-but-matching-the-existing-dark-neon-cyberpunk-aesthetic-glassmorphism-neon-glow-border-on-focus-the-bar-should-include-a-go-or-submit-button-inline-or-beneath-it-once-a-url-is-submitted-and-loaded-the-iframe-fills-the-tab-content-area-as-before-with-the-status-bar-showing-the-current-proxied-url-the-centered-landing-layout-is-only-shown-when-no-url-is-currently-loaded",
-      "featureTitle": "Redesign the Proxy tab (ProxyTab.tsx) to feature a centered Google-style landing layout when no URL is loaded. Display a prominent logo area in the center of the page: a neon-styled icon or emblem with the text 'Colt UI' displayed next to it (inline, on the same line). Below the logo, render a wide, prominent search/URL input bar styled like Google's search bar but matching the existing dark neon/cyberpunk aesthetic (glassmorphism, neon glow border on focus). The bar should include a 'Go' or submit button inline or beneath it. Once a URL is submitted and loaded, the iframe fills the tab content area as before, with the status bar showing the current proxied URL. The centered landing layout is only shown when no URL is currently loaded.",
+      "featureId": "feature-remove-the-secret-tab-entirely-from-the-application-delete-secrettab-tsx-remove-it-from-the-tab-list-in-header-tsx-and-remove-its-rendering-from-app-tsx-the-tab-should-no-longer-appear-in-navigation-or-be-accessible",
+      "featureTitle": "Remove the 'Secret' tab entirely from the application. Delete SecretTab.tsx, remove it from the tab list in Header.tsx, and remove its rendering from App.tsx. The tab should no longer appear in navigation or be accessible.",
       "files": [
-        "frontend/src/components/tabs/ProxyTab.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/Header.tsx",
+        "frontend/src/components/tabs/SecretTab.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -13,10 +15,31 @@
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
         "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-16"
+        "REQ-34"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-fix-the-click-me-button-in-musictab-tsx-so-that-clicking-it-successfully-calls-the-addccoins-backend-function-with-999999999-and-the-updated-c-coins-balance-is-immediately-reflected-in-the-store-tab-diagnose-and-resolve-the-root-cause-ensure-the-useaddccoins-mutation-hook-is-correctly-wired-in-musictab-tsx-that-it-calls-the-backend-actor-s-addccoins-method-and-that-on-success-it-invalidates-or-refetches-the-getccoins-query-so-the-balance-displayed-in-storetab-tsx-updates-without-requiring-a-page-refresh",
+      "featureTitle": "Fix the 'Click Me' button in MusicTab.tsx so that clicking it successfully calls the addCCoins backend function with 999999999 and the updated C Coins balance is immediately reflected in the Store tab. Diagnose and resolve the root cause: ensure the useAddCCoins mutation hook is correctly wired in MusicTab.tsx, that it calls the backend actor's addCCoins method, and that on success it invalidates or refetches the getCCoins query so the balance displayed in StoreTab.tsx updates without requiring a page refresh.",
+      "files": [
+        "frontend/src/components/tabs/MusicTab.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-35"
       ],
       "confidence": "high"
     }

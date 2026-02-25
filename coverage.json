@@ -1,34 +1,55 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-25T03:53:45.881Z",
+  "generatedAt": "2026-02-25T07:40:21.803Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-16",
-        "summary": "Redesign the Proxy tab (ProxyTab.tsx) to feature a centered Google-style landing layout when no URL is loaded. Display a prominent logo area in the center of the page: a neon-styled icon or emblem with the text 'Colt UI' displayed next to it (inline, on the same line). Below the logo, render a wide, prominent search/URL input bar styled like Google's search bar but matching the existing dark neon/cyberpunk aesthetic (glassmorphism, neon glow border on focus). The bar should include a 'Go' or submit button inline or beneath it. Once a URL is submitted and loaded, the iframe fills the tab content area as before, with the status bar showing the current proxied URL. The centered landing layout is only shown when no URL is currently loaded.",
+        "id": "REQ-34",
+        "summary": "Remove the 'Secret' tab entirely from the application. Delete SecretTab.tsx, remove it from the tab list in Header.tsx, and remove its rendering from App.tsx. The tab should no longer appear in navigation or be accessible.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/tabs/ProxyTab.tsx"
+          "frontend/src/components/Header.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/tabs/SecretTab.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/tabs/ProxyTab.tsx"
+          "frontend/src/components/Header.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/tabs/SecretTab.tsx"
+        ]
+      },
+      {
+        "id": "REQ-35",
+        "summary": "Fix the 'Click Me' button in MusicTab.tsx so that clicking it successfully calls the addCCoins backend function with 999999999 and the updated C Coins balance is immediately reflected in the Store tab. Diagnose and resolve the root cause: ensure the useAddCCoins mutation hook is correctly wired in MusicTab.tsx, that it calls the backend actor's addCCoins method, and that on success it invalidates or refetches the getCCoins query so the balance displayed in StoreTab.tsx updates without requiring a page refresh.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/tabs/MusicTab.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/tabs/MusicTab.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/tabs/ProxyTab.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/components/Header.tsx",
+    "frontend/src/components/tabs/MusicTab.tsx",
+    "frontend/src/components/tabs/SecretTab.tsx",
+    "frontend/src/components/tabs/StoreTab.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

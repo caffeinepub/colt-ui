@@ -30,10 +30,7 @@ const ProxyTab: React.FC = () => {
     if (e.key === 'Enter') handleGo();
   };
 
-  const handleIframeLoad = () => {
-    setIsLoading(false);
-  };
-
+  const handleIframeLoad = () => setIsLoading(false);
   const handleIframeError = () => {
     setIsLoading(false);
     setError('Unable to load this page. The site may block embedding or require HTTPS.');
@@ -103,25 +100,23 @@ const ProxyTab: React.FC = () => {
         </div>
       )}
 
-      {/* ── Landing state: Google-style centered layout ── */}
+      {/* ── Landing state: centered layout (no duplicate logo) ── */}
       {!isActive && (
         <div className="flex-1 flex flex-col items-center justify-center px-4 pb-8">
-          {/* Logo row */}
-          <div className="flex items-center gap-4 mb-8">
-            <img
-              src="/assets/generated/colt-ui-logo.dim_400x100.png"
-              alt="Colt UI"
-              className="h-14 object-contain drop-shadow-[0_0_12px_oklch(0.78_0.22_195_/_0.6)]"
-            />
-            <span
-              className="font-display text-3xl tracking-widest font-bold"
+          {/* Tagline instead of duplicate logo */}
+          <div className="mb-8 text-center">
+            <p
+              className="font-display text-4xl tracking-widest font-bold mb-2"
               style={{
                 color: 'oklch(0.78 0.22 195)',
                 textShadow: '0 0 16px oklch(0.78 0.22 195 / 0.7), 0 0 32px oklch(0.78 0.22 195 / 0.3)',
               }}
             >
-              COLT UI
-            </span>
+              PROXY BROWSER
+            </p>
+            <p className="text-sm text-muted-foreground font-body tracking-widest">
+              Browse the web through Colt UI
+            </p>
           </div>
 
           {/* Search bar */}
@@ -201,7 +196,6 @@ const ProxyTab: React.FC = () => {
             </div>
           </div>
 
-          {/* Hint */}
           <p className="mt-6 text-xs text-muted-foreground/50 font-body text-center max-w-xs">
             Note: some sites may block iframe embedding.
           </p>

@@ -1,24 +1,55 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Redesign Proxy Tab with Google-style layout",
+  "title": "Remove Secret tab and fix Click Me button C Coins not updating Store balance",
   "requirements": [
     {
-      "id": "REQ-16",
-      "summary": "Redesign the Proxy tab (ProxyTab.tsx) to feature a centered Google-style landing layout when no URL is loaded, with a prominent neon-styled logo/emblem displaying 'Colt UI' inline, and a wide URL input bar styled like Google's search bar but matching the dark neon/cyberpunk aesthetic. Once a URL is submitted, the iframe fills the tab as before.",
+      "id": "REQ-34",
+      "summary": "Remove the Secret tab entirely from the application including SecretTab.tsx, its route registration, and all navigation references",
       "acceptanceCriteria": [
-        "When the Proxy tab has no active URL loaded, the tab displays a centered layout with a logo/emblem and 'Colt UI' text displayed inline next to it.",
-        "A wide, prominent URL/search input bar is rendered below the logo, visually similar to Google's search bar but styled with the existing neon cyberpunk theme (glassmorphism card, neon glow on focus).",
-        "Submitting a URL via the search bar loads the target URL in an iframe that fills the content area, consistent with the existing proxy behavior.",
-        "A status bar showing the current proxied URL is visible when an iframe is loaded.",
-        "The centered landing layout is hidden once a URL is actively loaded in the iframe.",
-        "The design matches the existing dark neon/cyberpunk aesthetic used throughout Colt UI."
+        "The Secret/lock-icon tab no longer appears in the top navigation header",
+        "Navigating to the Secret tab route or index is no longer possible",
+        "SecretTab.tsx is removed or its reference is fully excised from App.tsx and Header.tsx",
+        "All other tabs (Games, Proxy, Music, Colt AI, Store, More) continue to render correctly"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/tabs/ProxyTab.tsx",
+          "path": "frontend/src/components/Header.tsx",
           "operation": "modify",
-          "description": "Redesign the ProxyTab component to display a centered Google-style landing layout when no URL is loaded. Add a centered container with the generated logo image (frontend/public/assets/generated/colt-ui-logo.dim_400x100.png) and 'Colt UI' text displayed inline on the same line. Below the logo, render a wide, prominent URL input bar styled with glassmorphism and neon glow effects on focus, matching the existing dark neon/cyberpunk aesthetic. Include a 'Go' submit button inline with the input bar. Preserve all existing proxy iframe loading, URL state management, error handling, and quick links logic. When a URL is submitted and loaded, hide the centered landing layout and display the iframe with the status bar showing the current proxied URL as before. Use Tailwind utility classes and the existing CSS custom properties for theming consistency."
+          "description": "Remove the Secret tab entry from the tabs array. Delete the object with icon Lock and label 'Secret' so it no longer appears in the navigation header."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove the conditional rendering of SecretTab component. Delete the case where activeTab === 'secret' and remove the import statement for SecretTab."
+        },
+        {
+          "path": "frontend/src/components/tabs/SecretTab.tsx",
+          "operation": "delete",
+          "description": "Delete the entire SecretTab.tsx file as it is no longer needed and should not be accessible."
+        }
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "summary": "Fix the Click Me button in MusicTab.tsx so clicking it calls addCCoins(999999999) and immediately updates the Store tab balance via query cache invalidation",
+      "acceptanceCriteria": [
+        "Clicking the 'Click Me' button in the Music tab triggers a call to the backend addCCoins function with the value 999999999",
+        "After the call succeeds, the C Coins balance in the Store tab updates to reflect the added coins without requiring a manual page refresh",
+        "The neon success message ('Infinite C Coins Unlocked!' or equivalent) is displayed in the Music tab after a successful click",
+        "The getCCoins query cache is invalidated or refetched on successful addCCoins mutation so the Store tab's balance display is in sync",
+        "No console errors are thrown during the button click flow"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/tabs/MusicTab.tsx",
+          "operation": "modify",
+          "description": "Fix the hidden Click Me button's onClick handler to properly call the addCCoins mutation with 999999999. Ensure the mutation is awaited and on success displays a neon success message. Verify the useAddCCoins hook is correctly imported and invoked at the component level (not inside the handler). The mutation should automatically invalidate the getCCoins query cache on success per the hook's onSuccess callback."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review and ensure the useAddCCoins mutation hook includes an onSuccess callback that invalidates the 'ccoins' query key using queryClient.invalidateQueries(['ccoins']). This ensures that when addCCoins succeeds, any components displaying the C Coins balance (like StoreTab) will automatically refetch and display the updated balance."
         }
       ]
     }

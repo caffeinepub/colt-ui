@@ -1,119 +1,92 @@
-import typography from '@tailwindcss/typography';
-import containerQueries from '@tailwindcss/container-queries';
-import animate from 'tailwindcss-animate';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class'],
-  content: ['index.html', 'src/**/*.{js,ts,jsx,tsx,html,css}'],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px'
-      }
-    },
     extend: {
       fontFamily: {
-        display: ['Orbitron', 'monospace'],
-        body: ['Rajdhani', 'sans-serif'],
+        orbitron: ['Orbitron', 'sans-serif'],
+        rajdhani: ['Rajdhani', 'sans-serif'],
+        'press-start': ['"Press Start 2P"', 'cursive'],
+        mono: ['monospace'],
       },
       colors: {
-        border: 'oklch(var(--border))',
-        input: 'oklch(var(--input))',
-        ring: 'oklch(var(--ring) / <alpha-value>)',
-        background: 'oklch(var(--background))',
-        foreground: 'oklch(var(--foreground))',
+        neon: {
+          cyan: '#00ffff',
+          green: '#00ff88',
+          purple: '#bf00ff',
+          pink: '#ff0080',
+        },
+        background: 'oklch(var(--background) / <alpha-value>)',
+        foreground: 'oklch(var(--foreground) / <alpha-value>)',
+        card: {
+          DEFAULT: 'oklch(var(--card) / <alpha-value>)',
+          foreground: 'oklch(var(--card-foreground) / <alpha-value>)',
+        },
         primary: {
           DEFAULT: 'oklch(var(--primary) / <alpha-value>)',
-          foreground: 'oklch(var(--primary-foreground))'
+          foreground: 'oklch(var(--primary-foreground) / <alpha-value>)',
         },
         secondary: {
           DEFAULT: 'oklch(var(--secondary) / <alpha-value>)',
-          foreground: 'oklch(var(--secondary-foreground))'
-        },
-        destructive: {
-          DEFAULT: 'oklch(var(--destructive) / <alpha-value>)',
-          foreground: 'oklch(var(--destructive-foreground))'
+          foreground: 'oklch(var(--secondary-foreground) / <alpha-value>)',
         },
         muted: {
           DEFAULT: 'oklch(var(--muted) / <alpha-value>)',
-          foreground: 'oklch(var(--muted-foreground) / <alpha-value>)'
+          foreground: 'oklch(var(--muted-foreground) / <alpha-value>)',
         },
         accent: {
           DEFAULT: 'oklch(var(--accent) / <alpha-value>)',
-          foreground: 'oklch(var(--accent-foreground))'
+          foreground: 'oklch(var(--accent-foreground) / <alpha-value>)',
         },
-        popover: {
-          DEFAULT: 'oklch(var(--popover))',
-          foreground: 'oklch(var(--popover-foreground))'
+        destructive: {
+          DEFAULT: 'oklch(var(--destructive) / <alpha-value>)',
+          foreground: 'oklch(var(--destructive-foreground) / <alpha-value>)',
         },
-        card: {
-          DEFAULT: 'oklch(var(--card))',
-          foreground: 'oklch(var(--card-foreground))'
+        border: 'oklch(var(--border) / <alpha-value>)',
+        input: 'oklch(var(--input) / <alpha-value>)',
+        ring: 'oklch(var(--ring) / <alpha-value>)',
+      },
+      boxShadow: {
+        'neon-cyan': '0 0 10px #00ffff, 0 0 20px #00ffff40',
+        'neon-green': '0 0 10px #00ff88, 0 0 20px #00ff8840',
+        'neon-purple': '0 0 10px #bf00ff, 0 0 20px #bf00ff40',
+        'neon-pink': '0 0 10px #ff0080, 0 0 20px #ff008040',
+      },
+      animation: {
+        'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'spin-slow': 'spin-slow 8s linear infinite',
+        'glitch': 'glitch 3s infinite',
+      },
+      keyframes: {
+        'neon-pulse': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.7' },
         },
-        neon: {
-          cyan: 'oklch(0.78 0.22 195)',
-          green: 'oklch(0.82 0.22 145)',
-          purple: 'oklch(0.72 0.22 290)',
-          pink: 'oklch(0.72 0.22 330)',
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
-        chart: {
-          1: 'oklch(var(--chart-1))',
-          2: 'oklch(var(--chart-2))',
-          3: 'oklch(var(--chart-3))',
-          4: 'oklch(var(--chart-4))',
-          5: 'oklch(var(--chart-5))'
+        'spin-slow': {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
         },
-        sidebar: {
-          DEFAULT: 'oklch(var(--sidebar))',
-          foreground: 'oklch(var(--sidebar-foreground))',
-          primary: 'oklch(var(--sidebar-primary))',
-          'primary-foreground': 'oklch(var(--sidebar-primary-foreground))',
-          accent: 'oklch(var(--sidebar-accent))',
-          'accent-foreground': 'oklch(var(--sidebar-accent-foreground))',
-          border: 'oklch(var(--sidebar-border))',
-          ring: 'oklch(var(--sidebar-ring))'
-        }
+        glitch: {
+          '0%': { transform: 'translate(0)' },
+          '20%': { transform: 'translate(-2px, 2px)' },
+          '40%': { transform: 'translate(-2px, -2px)' },
+          '60%': { transform: 'translate(2px, 2px)' },
+          '80%': { transform: 'translate(2px, -2px)' },
+          '100%': { transform: 'translate(0)' },
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        sm: 'calc(var(--radius) - 4px)',
       },
-      boxShadow: {
-        xs: '0 1px 2px 0 rgba(0,0,0,0.05)',
-        neon: '0 0 10px oklch(0.78 0.22 195), 0 0 20px oklch(0.78 0.22 195 / 0.5)',
-        'neon-green': '0 0 10px oklch(0.82 0.22 145), 0 0 20px oklch(0.82 0.22 145 / 0.5)',
-        'neon-purple': '0 0 10px oklch(0.72 0.22 290), 0 0 20px oklch(0.72 0.22 290 / 0.5)',
-        glass: '0 8px 32px oklch(0 0 0 / 0.4)',
-      },
-      keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' }
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' }
-        },
-        'pulse-neon': {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.6' }
-        },
-        'grid-scroll': {
-          '0%': { backgroundPosition: '0 0' },
-          '100%': { backgroundPosition: '40px 40px' }
-        }
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
-        'grid-scroll': 'grid-scroll 3s linear infinite',
-      }
-    }
+    },
   },
-  plugins: [typography, containerQueries, animate]
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 };

@@ -1,14 +1,20 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 9,
-  "summary": "Colt UI is a stylish web app with cool visual effects, a custom cursor, and tabbed navigation. It includes a built-in web proxy, a games section (featuring a Flappy Bird spinoff), a music tab, and additional sections. The design is simple but visually engaging.",
+  "projectStateVersion": 23,
+  "summary": "Colt UI is a stylish web app with cool visual effects, a custom cursor, and tabbed navigation. It includes a built-in web proxy, a games section (multiple Colt-branded games), a music tab, a More tab with utilities, a Colt AI tutoring tab, and a Store tab with C Coins currency. The design features a customizable theme (fonts, backgrounds, cursors, accent colors) and a neon cyberpunk aesthetic.",
   "architectural_notes": [
     "Project name: Colt UI",
     "Simple layout with tabbed navigation as the primary UI pattern",
-    "Proxy tab likely requires iframe or service worker approach for web proxy functionality"
+    "Proxy tab likely requires iframe or service worker approach for web proxy functionality",
+    "Music tab requires YouTube audio extraction workaround (e.g., invidious, yt-dlp proxy, or similar) to play blocked videos",
+    "C Coins are a per-user virtual currency stored in the Motoko backend; new users start with 2000 coins",
+    "Tab cloaking changes document.title and favicon dynamically to disguise the app as another site"
   ],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Music search is broken and not returning/playing results",
+    "Click Me button in Music tab does not update C Coins balance displayed in the Store tab"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-tabbed-navigation-layout-with-the-following-top-level-tabs-games-proxy-music-and-more-the-active-tab-should-be-visually-highlighted-navigation-should-be-smooth-with-animated-transitions-between-tabs",
@@ -129,6 +135,142 @@
         "REQ-16"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-move-the-c-logo-glyph-from-the-proxy-tab-landing-page-to-the-persistent-top-left-corner-of-the-site-header-in-header-tsx-it-should-appear-as-a-standalone-neon-styled-c-emblem-before-the-colt-ui-wordmark-on-every-tab-always-visible-regardless-of-active-tab",
+      "title": "Move the 'C' logo glyph from the Proxy tab landing page to the persistent top-left corner of the site header in Header.tsx. It should appear as a standalone neon-styled 'C' emblem before the 'COLT UI' wordmark on every tab, always visible regardless of active tab.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-recode-musictab-tsx-so-that-users-can-type-any-song-name-into-the-search-bar-and-receive-playable-results-sourced-from-youtube-use-the-youtube-iframe-api-or-youtube-data-api-v3-search-endpoint-to-query-results-dynamically-to-ensure-playback-even-when-a-video-is-embedding-restricted-or-blocked-extract-and-play-only-the-audio-track-by-routing-through-a-server-side-audio-proxy-or-a-public-audio-extraction-endpoint-e-g-a-cors-friendly-audio-stream-url-so-the-song-is-always-listenable-regardless-of-embedding-restrictions-display-search-results-as-clickable-glasscards-showing-thumbnail-title-and-channel-selecting-one-loads-audio-playback-in-the-player-area",
+      "title": "Recode MusicTab.tsx so that users can type any song name into the search bar and receive playable results sourced from YouTube. Use the YouTube IFrame API or YouTube Data API v3 (search endpoint) to query results dynamically. To ensure playback even when a video is embedding-restricted or blocked, extract and play only the audio track by routing through a server-side audio proxy or a public audio-extraction endpoint (e.g., a CORS-friendly audio stream URL) so the song is always listenable regardless of embedding restrictions. Display search results as clickable GlassCards showing thumbnail, title, and channel; selecting one loads audio playback in the player area.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-multiple-cursor-style-options-to-the-more-tab-settings-panel-provide-at-least-4-distinct-cursor-styles-e-g-neon-dot-current-default-crosshair-ring-pulse-star-burst-arrow-glow-the-selected-cursor-style-is-applied-globally-via-the-customcursor-component-the-active-cursor-choice-is-persisted-to-the-motoko-backend-alongside-existing-user-preferences-accent-color-last-active-tab",
+      "title": "Add multiple cursor style options to the More tab Settings panel. Provide at least 4 distinct cursor styles (e.g., Neon Dot — current default, Crosshair, Ring Pulse, Star Burst, Arrow Glow). The selected cursor style is applied globally via the CustomCursor component. The active cursor choice is persisted to the Motoko backend alongside existing user preferences (accent color, last active tab).",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-customizable-background-options-to-the-more-tab-settings-panel-provide-at-least-5-background-presets-e-g-particle-grid-current-default-neon-rain-matrix-code-starfield-solid-dark-cyber-hex-grid-each-preset-replaces-or-configures-the-animatedbackground-canvas-the-selected-background-is-applied-globally-and-persisted-to-the-motoko-backend-alongside-other-user-preferences",
+      "title": "Add customizable background options to the More tab Settings panel. Provide at least 5 background presets (e.g., Particle Grid — current default, Neon Rain, Matrix Code, Starfield, Solid Dark, Cyber Hex Grid). Each preset replaces or configures the AnimatedBackground canvas. The selected background is applied globally and persisted to the Motoko backend alongside other user preferences.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-tab-cloaking-section-to-the-more-tab-settings-panel-provide-a-list-of-preset-disguise-options-at-minimum-google-clever-com-google-classroom-youtube-and-a-default-colt-ui-reset-option-each-preset-stores-a-favicon-url-and-a-tab-title-string-selecting-a-preset-dynamically-updates-document-title-and-the-page-s-link-rel-icon-to-match-the-chosen-site-making-the-browser-tab-appear-to-belong-to-that-site-the-active-cloak-choice-should-persist-in-the-motoko-backend-alongside-other-user-preferences",
+      "title": "Add a Tab Cloaking section to the More tab Settings panel. Provide a list of preset disguise options (at minimum: Google, Clever.com, Google Classroom, YouTube, and a 'Default / Colt UI' reset option). Each preset stores a favicon URL and a tab title string. Selecting a preset dynamically updates document.title and the page's <link rel='icon'> to match the chosen site, making the browser tab appear to belong to that site. The active cloak choice should persist in the Motoko backend alongside other user preferences.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-music-search-in-musictab-tsx-the-current-invidious-based-search-is-broken-replace-the-search-backend-with-a-reliable-public-invidious-instance-or-fall-back-to-multiple-invidious-instances-in-sequence-e-g-invidious-io-vid-puffyan-us-invidious-nerdvpn-de-when-a-result-is-selected-attempt-to-load-audio-via-the-piped-audio-stream-url-if-that-fails-fall-back-to-a-direct-youtube-embed-iframe-ensure-search-results-display-thumbnail-title-and-channel-name-as-glasscards-and-that-selecting-one-starts-playback-in-the-player-area",
+      "title": "Fix the music search in MusicTab.tsx. The current Invidious-based search is broken. Replace the search backend with a reliable public Invidious instance or fall back to multiple Invidious instances in sequence (e.g., invidious.io, vid.puffyan.us, invidious.nerdvpn.de). When a result is selected, attempt to load audio via the Piped audio stream URL. If that fails, fall back to a direct YouTube embed iframe. Ensure search results display thumbnail, title, and channel name as GlassCards, and that selecting one starts playback in the player area.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-image-based-background-presets-to-the-background-customization-options-in-the-more-tab-settings-panel-provide-at-least-5-static-image-backgrounds-e-g-neon-city-space-nebula-cyber-forest-abstract-glitch-dark-ocean-displayed-as-selectable-thumbnail-cards-alongside-the-existing-animated-presets-when-an-image-preset-is-selected-the-animatedbackground-canvas-is-hidden-and-the-chosen-image-is-rendered-as-a-full-screen-fixed-background-with-a-dark-overlay-for-readability-the-selected-image-background-is-persisted-to-the-motoko-backend-alongside-other-preferences",
+      "title": "Add image-based background presets to the background customization options in the More tab Settings panel. Provide at least 5 static image backgrounds (e.g., Neon City, Space Nebula, Cyber Forest, Abstract Glitch, Dark Ocean) displayed as selectable thumbnail cards alongside the existing animated presets. When an image preset is selected, the AnimatedBackground canvas is hidden and the chosen image is rendered as a full-screen fixed background with a dark overlay for readability. The selected image background is persisted to the Motoko backend alongside other preferences.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-font-customization-to-the-more-tab-settings-panel-provide-at-least-5-font-options-press-start-2p-orbitron-current-default-rajdhani-monospace-system-and-a-clean-sans-serif-e-g-inter-or-system-ui-selecting-a-font-applies-it-globally-to-the-app-by-setting-a-css-custom-property-or-a-data-attribute-on-the-html-or-body-element-that-overrides-the-base-font-family-the-chosen-font-is-persisted-to-the-motoko-backend-alongside-other-user-preferences",
+      "title": "Add font customization to the More tab Settings panel. Provide at least 5 font options: Press Start 2P, Orbitron (current default), Rajdhani, monospace (system), and a clean sans-serif (e.g., Inter or system-ui). Selecting a font applies it globally to the app by setting a CSS custom property or a data attribute on the <html> or <body> element that overrides the base font-family. The chosen font is persisted to the Motoko backend alongside other user preferences.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-top-level-navigation-tab-called-colt-ai-to-header-tsx-and-app-tsx-this-tab-renders-an-ai-tutoring-chatbot-interface-the-chat-ui-consists-of-a-scrollable-message-history-area-and-a-text-input-with-a-send-button-all-styled-with-the-existing-dark-neon-glassmorphism-aesthetic-colt-ai-is-focused-on-four-subjects-math-history-english-and-science-provide-four-subject-shortcut-buttons-above-the-input-that-pre-fill-example-prompts-the-ai-responses-are-generated-by-calling-a-free-public-ai-api-e-g-https-api-piston-rs-or-a-public-math-knowledge-endpoint-if-no-suitable-free-api-is-available-implement-a-rule-based-response-engine-in-the-frontend-that-handles-common-math-operations-arithmetic-algebra-steps-historical-facts-a-curated-set-of-q-a-grammar-tips-and-science-definitions-clearly-label-the-bot-as-colt-ai-in-the-chat-header",
+      "title": "Add a new top-level navigation tab called 'Colt AI' to Header.tsx and App.tsx. This tab renders an AI tutoring chatbot interface. The chat UI consists of a scrollable message history area and a text input with a Send button, all styled with the existing dark neon/glassmorphism aesthetic. Colt AI is focused on four subjects: Math, History, English, and Science. Provide four subject shortcut buttons above the input that pre-fill example prompts. The AI responses are generated by calling a free public AI API (e.g., https://api.piston.rs or a public math/knowledge endpoint); if no suitable free API is available, implement a rule-based response engine in the frontend that handles common math operations (arithmetic, algebra steps), historical facts (a curated set of Q&A), grammar tips, and science definitions. Clearly label the bot as 'Colt AI' in the chat header.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-top-level-navigation-tab-called-store-to-header-tsx-and-app-tsx-the-store-tab-displays-purchasable-visual-effects-for-the-website-as-glasscards-in-a-grid-include-at-least-8-purchasable-effects-such-as-rainbow-cursor-trail-fireworks-on-click-screen-shake-on-actions-confetti-burst-neon-pulse-overlay-golden-card-borders-glitch-text-effect-and-vip-badge-in-header-each-card-shows-the-effect-name-a-short-description-a-preview-indicator-and-its-c-coin-price-display-the-user-s-current-c-coin-balance-prominently-at-the-top-of-the-store-tab-purchasing-an-effect-calls-spendccoins-on-the-backend-and-adds-it-to-the-user-s-purchased-effects-list-purchased-effects-are-visually-marked-as-owned-and-are-applied-globally-in-the-app-effects-that-have-already-been-purchased-show-an-owned-badge-instead-of-a-buy-button",
+      "title": "Add a new top-level navigation tab called 'Store' to Header.tsx and App.tsx. The Store tab displays purchasable visual effects for the website as GlassCards in a grid. Include at least 8 purchasable effects such as: Rainbow Cursor Trail, Fireworks on Click, Screen Shake on Actions, Confetti Burst, Neon Pulse Overlay, Golden Card Borders, Glitch Text Effect, and VIP Badge in Header. Each card shows the effect name, a short description, a preview indicator, and its C Coin price. Display the user's current C Coin balance prominently at the top of the Store tab. Purchasing an effect calls spendCCoins on the backend and adds it to the user's purchased effects list. Purchased effects are visually marked as owned and are applied globally in the app. Effects that have already been purchased show an 'Owned' badge instead of a buy button.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-top-level-navigation-tab-called-secret-or-display-it-with-a-lock-icon-and-no-label-until-accessed-to-header-tsx-and-app-tsx-this-tab-renders-a-single-centered-input-field-with-a-submit-button-and-the-prompt-enter-secret-code-when-the-user-types-coltiscool-and-submits-call-addccoins-on-the-backend-with-a-very-large-number-e-g-999999999-to-grant-effectively-infinite-c-coins-display-a-neon-success-animation-or-message-infinite-c-coins-unlocked-and-update-the-displayed-balance-everywhere-in-the-app-if-the-wrong-code-is-entered-display-a-neon-error-message-the-secret-code-can-only-be-redeemed-once-per-session-disable-the-input-after-a-successful-redemption-within-the-same-session",
+      "title": "Add a new top-level navigation tab called 'Secret' (or display it with a lock icon and no label until accessed) to Header.tsx and App.tsx. This tab renders a single centered input field with a Submit button and the prompt 'Enter Secret Code'. When the user types 'coltiscool' and submits, call addCCoins on the backend with a very large number (e.g., 999999999) to grant effectively infinite C Coins, display a neon success animation or message ('Infinite C Coins Unlocked!'), and update the displayed balance everywhere in the app. If the wrong code is entered, display a neon error message. The secret code can only be redeemed once per session (disable the input after a successful redemption within the same session).",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-components-tabs-secrettab-tsx-ensure-the-hardcoded-secret-code-that-triggers-the-c-coins-reward-is-exactly-the-string-coltiscool-all-lowercase-no-spaces-when-the-user-submits-this-exact-phrase-call-addccoins-with-999999999-and-display-the-neon-success-message-any-other-input-must-show-a-neon-error-message-the-input-must-be-disabled-after-a-successful-redemption-within-the-same-session",
+      "title": "In frontend/src/components/tabs/SecretTab.tsx, ensure the hardcoded secret code that triggers the C Coins reward is exactly the string 'coltiscool' (all lowercase, no spaces). When the user submits this exact phrase, call addCCoins with 999999999 and display the neon success message. Any other input must show a neon error message. The input must be disabled after a successful redemption within the same session.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-components-tabs-secrettab-tsx-audit-and-fix-the-secret-code-comparison-logic-so-that-submitting-exactly-coltiscool-all-lowercase-no-spaces-no-invisible-characters-correctly-triggers-the-addccoins-call-with-999999999-and-displays-the-neon-success-message-infinite-c-coins-unlocked-ensure-the-input-value-is-trimmed-with-trim-before-comparison-to-remove-any-accidental-leading-trailing-whitespace-any-input-that-does-not-exactly-match-coltiscool-after-trimming-must-display-the-neon-error-message-the-input-must-be-disabled-after-a-successful-redemption-within-the-same-session",
+      "title": "In frontend/src/components/tabs/SecretTab.tsx, audit and fix the secret code comparison logic so that submitting exactly 'coltiscool' (all lowercase, no spaces, no invisible characters) correctly triggers the addCCoins call with 999999999 and displays the neon success message 'Infinite C Coins Unlocked!'. Ensure the input value is trimmed with .trim() before comparison to remove any accidental leading/trailing whitespace. Any input that does not exactly match 'coltiscool' after trimming must display the neon error message. The input must be disabled after a successful redemption within the same session.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-components-tabs-secrettab-tsx-change-the-secret-code-comparison-so-that-submitting-exactly-999-after-trimming-triggers-the-addccoins-call-with-999999999-and-displays-the-neon-success-message-infinite-c-coins-unlocked-any-input-that-does-not-exactly-match-999-after-trimming-must-display-the-neon-error-message-the-input-must-be-disabled-after-a-successful-redemption-within-the-same-session",
+      "title": "In frontend/src/components/tabs/SecretTab.tsx, change the secret code comparison so that submitting exactly '999' (after trimming) triggers the addCCoins call with 999999999 and displays the neon success message 'Infinite C Coins Unlocked!'. Any input that does not exactly match '999' after trimming must display the neon error message. The input must be disabled after a successful redemption within the same session.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-musictab-tsx-add-a-large-prominently-styled-button-labeled-click-me-rendered-within-the-music-tab-content-area-when-clicked-the-button-calls-the-addccoins-backend-function-with-999999999-to-grant-the-user-effectively-infinite-c-coins-after-a-successful-click-display-a-neon-success-message-e-g-infinite-c-coins-unlocked-near-the-button-the-button-and-success-message-must-match-the-existing-dark-neon-cyberpunk-glassmorphism-aesthetic-the-button-should-be-large-enough-to-be-immediately-noticeable-e-g-using-generous-padding-and-a-neon-glow-style-consistent-with-the-app-theme",
+      "title": "In MusicTab.tsx, add a large, prominently styled button labeled 'Click Me' rendered within the Music tab content area. When clicked, the button calls the addCCoins backend function with 999999999 to grant the user effectively infinite C Coins. After a successful click, display a neon success message (e.g., 'Infinite C Coins Unlocked!') near the button. The button and success message must match the existing dark neon/cyberpunk glassmorphism aesthetic. The button should be large enough to be immediately noticeable (e.g., using generous padding and a neon glow style consistent with the app theme).",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-secret-tab-entirely-from-the-application-delete-secrettab-tsx-remove-it-from-the-tab-list-in-header-tsx-and-remove-its-rendering-from-app-tsx-the-tab-should-no-longer-appear-in-navigation-or-be-accessible",
+      "title": "Remove the 'Secret' tab entirely from the application. Delete SecretTab.tsx, remove it from the tab list in Header.tsx, and remove its rendering from App.tsx. The tab should no longer appear in navigation or be accessible.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-click-me-button-in-musictab-tsx-so-that-clicking-it-successfully-calls-the-addccoins-backend-function-with-999999999-and-the-updated-c-coins-balance-is-immediately-reflected-in-the-store-tab-diagnose-and-resolve-the-root-cause-ensure-the-useaddccoins-mutation-hook-is-correctly-wired-in-musictab-tsx-that-it-calls-the-backend-actor-s-addccoins-method-and-that-on-success-it-invalidates-or-refetches-the-getccoins-query-so-the-balance-displayed-in-storetab-tsx-updates-without-requiring-a-page-refresh",
+      "title": "Fix the 'Click Me' button in MusicTab.tsx so that clicking it successfully calls the addCCoins backend function with 999999999 and the updated C Coins balance is immediately reflected in the Store tab. Diagnose and resolve the root cause: ensure the useAddCCoins mutation hook is correctly wired in MusicTab.tsx, that it calls the backend actor's addCCoins method, and that on success it invalidates or refetches the getCCoins query so the balance displayed in StoreTab.tsx updates without requiring a page refresh.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -185,6 +327,82 @@
     {
       "id": "AR-14",
       "summary": "Redesign the Proxy tab to have a Google-style layout: a centered logo with 'Colt UI' text next to it, and a prominent search/URL bar underneath the logo.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Move the 'C' logo to the top-left corner of the site (persistent header area) instead of only in the proxy tab landing layout.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Recode the Music tab so users can search for any song by name, results are pulled from YouTube, and audio plays even if the YouTube video is age-restricted or embedding is blocked (e.g., via audio extraction or alternative streaming).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add multiple cursor style options that users can choose from (e.g., different glowing shapes, crosshairs, animated styles) — selectable from settings or the More tab.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Add customizable background options so users can change the app background (e.g., different animated patterns, colors, or images) — selectable from settings or the More tab.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Add tab cloaking feature in the More tab settings: allow users to change the browser tab's favicon and title to disguise the site as another website (e.g., Google, Clever.com).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Fix music search — it is currently broken and needs to be repaired so users can search and play songs.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Add image-based background presets to the background customization options in the More tab settings (in addition to or replacing animated presets).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Add font customization to the More tab settings so users can change the app-wide font (e.g., Press Start 2P, monospace, default, etc.).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Add a 'Colt AI' tab — an AI chatbot assistant focused on math, history, English, and science tutoring.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Extend the Motoko backend actor in backend/main.mo to support a C Coins currency system. Add a per-principal C Coins balance stored in a stable HashMap. New users (first-time callers) should be initialized with 2000 C Coins. Expose the following endpoints: getCCoins() : async Nat (returns caller's balance), spendCCoins(amount: Nat) : async Bool (deducts amount if balance is sufficient, returns true on success), addCCoins(amount: Nat) : async () (adds coins to caller's balance — used by the secret code tab), setPurchasedEffects(effects: [Text]) : async () and getPurchasedEffects() : async [Text] (stores and retrieves the list of purchased effect IDs for the caller). Also persist font preference alongside existing preferences by adding a fontStyle field to the UserPreferences record (defaulting to 'orbitron') and a cloakPreset field (defaulting to 'default').",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Update the migration module (backend/migration.mo) to handle the schema upgrade from the existing UserPreferences record (with cursorStyle, backgroundStyle, accentColor, notepadContent) to the new schema that adds fontStyle (default 'orbitron') and cloakPreset (default 'default'). Ensure existing stored preferences are preserved and only the new fields are defaulted.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Add a big 'Click Me' button in the Music tab that rewards the user with infinite C Coins when clicked (replaces the secret code system).",
       "reqIds": [],
       "status": "pending"
     }

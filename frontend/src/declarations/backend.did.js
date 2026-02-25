@@ -8,24 +8,102 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const _CaffeineStorageCreateCertificateResult = IDL.Record({
+  'method' : IDL.Text,
+  'blob_hash' : IDL.Text,
+});
+export const _CaffeineStorageRefillInformation = IDL.Record({
+  'proposed_top_up_amount' : IDL.Opt(IDL.Nat),
+});
+export const _CaffeineStorageRefillResult = IDL.Record({
+  'success' : IDL.Opt(IDL.Bool),
+  'topped_up_amount' : IDL.Opt(IDL.Nat),
+});
 export const UserRole = IDL.Variant({
   'admin' : IDL.Null,
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const CursorStyle = IDL.Variant({
+  'arrowGlow' : IDL.Null,
+  'starBurst' : IDL.Null,
+  'neonDot' : IDL.Null,
+  'crosshair' : IDL.Null,
+  'ringPulse' : IDL.Null,
+});
+export const FontStyle = IDL.Variant({
+  'orbitron' : IDL.Null,
+  'sansSerif' : IDL.Null,
+  'monospace' : IDL.Null,
+  'rajdhani' : IDL.Null,
+  'pressStart2P' : IDL.Null,
+});
+export const BackgroundStyle = IDL.Variant({
+  'starfield' : IDL.Null,
+  'spaceNebula' : IDL.Null,
+  'darkOcean' : IDL.Null,
+  'matrixCode' : IDL.Null,
+  'cyberForest' : IDL.Null,
+  'abstractGlitch' : IDL.Null,
+  'solidDark' : IDL.Null,
+  'particleGrid' : IDL.Null,
+  'neonCity' : IDL.Null,
+  'neonRain' : IDL.Null,
+  'cyberHexGrid' : IDL.Null,
+});
+export const TabCloakPreset = IDL.Variant({
+  'clever' : IDL.Null,
+  'google' : IDL.Null,
+  'default' : IDL.Null,
+  'youtube' : IDL.Null,
+  'googleClassroom' : IDL.Null,
+});
 export const Preferences = IDL.Record({
+  'cursorStyle' : CursorStyle,
   'lastActiveTab' : IDL.Text,
+  'fontStyle' : FontStyle,
+  'backgroundStyle' : BackgroundStyle,
   'notepad' : IDL.Text,
+  'cloakPreset' : TabCloakPreset,
   'accentColor' : IDL.Text,
 });
 
 export const idlService = IDL.Service({
+  '_caffeineStorageBlobIsLive' : IDL.Func(
+      [IDL.Vec(IDL.Nat8)],
+      [IDL.Bool],
+      ['query'],
+    ),
+  '_caffeineStorageBlobsToDelete' : IDL.Func(
+      [],
+      [IDL.Vec(IDL.Vec(IDL.Nat8))],
+      ['query'],
+    ),
+  '_caffeineStorageConfirmBlobDeletion' : IDL.Func(
+      [IDL.Vec(IDL.Vec(IDL.Nat8))],
+      [],
+      [],
+    ),
+  '_caffeineStorageCreateCertificate' : IDL.Func(
+      [IDL.Text],
+      [_CaffeineStorageCreateCertificateResult],
+      [],
+    ),
+  '_caffeineStorageRefillCashier' : IDL.Func(
+      [IDL.Opt(_CaffeineStorageRefillInformation)],
+      [_CaffeineStorageRefillResult],
+      [],
+    ),
+  '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addCCoins' : IDL.Func([IDL.Nat], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'getCCoins' : IDL.Func([], [IDL.Nat], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getPreferences' : IDL.Func([], [Preferences], ['query']),
+  'getPurchasedEffects' : IDL.Func([], [IDL.Vec(IDL.Text)], []),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -34,30 +112,121 @@ export const idlService = IDL.Service({
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'saveNotepad' : IDL.Func([IDL.Text], [], []),
-  'savePreferences' : IDL.Func([IDL.Text, IDL.Text], [], []),
+  'savePreferences' : IDL.Func(
+      [
+        IDL.Text,
+        IDL.Text,
+        CursorStyle,
+        BackgroundStyle,
+        FontStyle,
+        TabCloakPreset,
+      ],
+      [],
+      [],
+    ),
+  'setPurchasedEffects' : IDL.Func([IDL.Vec(IDL.Text)], [], []),
+  'spendCCoins' : IDL.Func([IDL.Nat], [IDL.Bool], []),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const _CaffeineStorageCreateCertificateResult = IDL.Record({
+    'method' : IDL.Text,
+    'blob_hash' : IDL.Text,
+  });
+  const _CaffeineStorageRefillInformation = IDL.Record({
+    'proposed_top_up_amount' : IDL.Opt(IDL.Nat),
+  });
+  const _CaffeineStorageRefillResult = IDL.Record({
+    'success' : IDL.Opt(IDL.Bool),
+    'topped_up_amount' : IDL.Opt(IDL.Nat),
+  });
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const CursorStyle = IDL.Variant({
+    'arrowGlow' : IDL.Null,
+    'starBurst' : IDL.Null,
+    'neonDot' : IDL.Null,
+    'crosshair' : IDL.Null,
+    'ringPulse' : IDL.Null,
+  });
+  const FontStyle = IDL.Variant({
+    'orbitron' : IDL.Null,
+    'sansSerif' : IDL.Null,
+    'monospace' : IDL.Null,
+    'rajdhani' : IDL.Null,
+    'pressStart2P' : IDL.Null,
+  });
+  const BackgroundStyle = IDL.Variant({
+    'starfield' : IDL.Null,
+    'spaceNebula' : IDL.Null,
+    'darkOcean' : IDL.Null,
+    'matrixCode' : IDL.Null,
+    'cyberForest' : IDL.Null,
+    'abstractGlitch' : IDL.Null,
+    'solidDark' : IDL.Null,
+    'particleGrid' : IDL.Null,
+    'neonCity' : IDL.Null,
+    'neonRain' : IDL.Null,
+    'cyberHexGrid' : IDL.Null,
+  });
+  const TabCloakPreset = IDL.Variant({
+    'clever' : IDL.Null,
+    'google' : IDL.Null,
+    'default' : IDL.Null,
+    'youtube' : IDL.Null,
+    'googleClassroom' : IDL.Null,
+  });
   const Preferences = IDL.Record({
+    'cursorStyle' : CursorStyle,
     'lastActiveTab' : IDL.Text,
+    'fontStyle' : FontStyle,
+    'backgroundStyle' : BackgroundStyle,
     'notepad' : IDL.Text,
+    'cloakPreset' : TabCloakPreset,
     'accentColor' : IDL.Text,
   });
   
   return IDL.Service({
+    '_caffeineStorageBlobIsLive' : IDL.Func(
+        [IDL.Vec(IDL.Nat8)],
+        [IDL.Bool],
+        ['query'],
+      ),
+    '_caffeineStorageBlobsToDelete' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Vec(IDL.Nat8))],
+        ['query'],
+      ),
+    '_caffeineStorageConfirmBlobDeletion' : IDL.Func(
+        [IDL.Vec(IDL.Vec(IDL.Nat8))],
+        [],
+        [],
+      ),
+    '_caffeineStorageCreateCertificate' : IDL.Func(
+        [IDL.Text],
+        [_CaffeineStorageCreateCertificateResult],
+        [],
+      ),
+    '_caffeineStorageRefillCashier' : IDL.Func(
+        [IDL.Opt(_CaffeineStorageRefillInformation)],
+        [_CaffeineStorageRefillResult],
+        [],
+      ),
+    '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addCCoins' : IDL.Func([IDL.Nat], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'getCCoins' : IDL.Func([], [IDL.Nat], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getPreferences' : IDL.Func([], [Preferences], ['query']),
+    'getPurchasedEffects' : IDL.Func([], [IDL.Vec(IDL.Text)], []),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
@@ -66,7 +235,20 @@ export const idlFactory = ({ IDL }) => {
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'saveNotepad' : IDL.Func([IDL.Text], [], []),
-    'savePreferences' : IDL.Func([IDL.Text, IDL.Text], [], []),
+    'savePreferences' : IDL.Func(
+        [
+          IDL.Text,
+          IDL.Text,
+          CursorStyle,
+          BackgroundStyle,
+          FontStyle,
+          TabCloakPreset,
+        ],
+        [],
+        [],
+      ),
+    'setPurchasedEffects' : IDL.Func([IDL.Vec(IDL.Text)], [], []),
+    'spendCCoins' : IDL.Func([IDL.Nat], [IDL.Bool], []),
   });
 };
 

@@ -1,124 +1,196 @@
 import React, { useEffect, useRef } from 'react';
+import { BackgroundStyle } from '../backend';
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  opacity: number;
-  color: string;
+interface AnimatedBackgroundProps {
+  backgroundStyle: BackgroundStyle;
 }
 
-const AnimatedBackground: React.FC = () => {
+const IMAGE_BACKGROUNDS = new Set([
+  BackgroundStyle.neonCity,
+  BackgroundStyle.spaceNebula,
+  BackgroundStyle.cyberForest,
+  BackgroundStyle.abstractGlitch,
+  BackgroundStyle.darkOcean,
+]);
+
+export default function AnimatedBackground({ backgroundStyle }: AnimatedBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
   const animFrameRef = useRef<number>(0);
 
+  // Don't render canvas for image backgrounds
+  if (IMAGE_BACKGROUNDS.has(backgroundStyle)) {
+    return null;
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const resize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', handleResize);
 
-    const colors = ['#00e5ff', '#00ff88', '#7c3aed', '#ff00aa'];
-    particlesRef.current = Array.from({ length: 60 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      size: Math.random() * 2 + 0.5,
-      opacity: Math.random() * 0.6 + 0.1,
-      color: colors[Math.floor(Math.random() * colors.length)],
-    }));
+    let particles: Array<{ x: number; y: number; vx: number; vy: number; size: number; alpha: number; color?: string; char?: string; speed?: number }> = [];
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const initParticles = () => {
+      particles = [];
+      const count = Math.floor((canvas.width * canvas.height) / 8000);
 
-      // Draw grid
-      ctx.strokeStyle = 'rgba(0, 229, 255, 0.04)';
-      ctx.lineWidth = 1;
-      const gridSize = 40;
-      for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-
-      // Draw particles and connections
-      const particles = particlesRef.current;
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + Math.floor(p.opacity * 255).toString(16).padStart(2, '0');
-        ctx.fill();
-
-        // Draw glow
-        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
-        gradient.addColorStop(0, p.color + '44');
-        gradient.addColorStop(1, 'transparent');
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-
-        // Connect nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const other = particles[j];
-          const dx = p.x - other.x;
-          const dy = p.y - other.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(other.x, other.y);
-            ctx.strokeStyle = `rgba(0, 229, 255, ${0.08 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
+      if (backgroundStyle === BackgroundStyle.particleGrid) {
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 1,
+            alpha: Math.random() * 0.5 + 0.2,
+          });
         }
-      });
-
-      animFrameRef.current = requestAnimationFrame(draw);
+      } else if (backgroundStyle === BackgroundStyle.neonRain) {
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: 0,
+            vy: Math.random() * 3 + 1,
+            size: Math.random() * 2 + 1,
+            alpha: Math.random() * 0.6 + 0.2,
+            color: ['#00ffff', '#ff00ff', '#00ff88'][Math.floor(Math.random() * 3)],
+          });
+        }
+      } else if (backgroundStyle === BackgroundStyle.matrixCode) {
+        const cols = Math.floor(canvas.width / 20);
+        for (let i = 0; i < cols; i++) {
+          particles.push({
+            x: i * 20,
+            y: Math.random() * canvas.height,
+            vx: 0,
+            vy: Math.random() * 3 + 1,
+            size: 14,
+            alpha: Math.random() * 0.8 + 0.2,
+            char: String.fromCharCode(0x30A0 + Math.random() * 96),
+          });
+        }
+      } else if (backgroundStyle === BackgroundStyle.starfield) {
+        for (let i = 0; i < count * 2; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: 0,
+            vy: Math.random() * 0.5 + 0.1,
+            size: Math.random() * 2 + 0.5,
+            alpha: Math.random() * 0.8 + 0.2,
+          });
+        }
+      } else if (backgroundStyle === BackgroundStyle.cyberHexGrid) {
+        for (let i = 0; i < count / 2; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            size: Math.random() * 20 + 10,
+            alpha: Math.random() * 0.15 + 0.05,
+          });
+        }
+      }
     };
 
-    draw();
+    initParticles();
+
+    const animate = () => {
+      if (backgroundStyle === BackgroundStyle.solidDark) {
+        ctx.fillStyle = '#050510';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        return;
+      }
+
+      ctx.fillStyle = 'rgba(5, 5, 16, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (const p of particles) {
+        if (backgroundStyle === BackgroundStyle.particleGrid) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 255, 255, ${p.alpha})`;
+          ctx.fill();
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        } else if (backgroundStyle === BackgroundStyle.neonRain) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p.x, p.y + 15);
+          ctx.strokeStyle = `${p.color}${Math.floor(p.alpha * 255).toString(16).padStart(2, '0')}`;
+          ctx.lineWidth = p.size;
+          ctx.stroke();
+          p.y += p.vy;
+          if (p.y > canvas.height) p.y = -20;
+        } else if (backgroundStyle === BackgroundStyle.matrixCode) {
+          ctx.fillStyle = `rgba(0, 255, 70, ${p.alpha})`;
+          ctx.font = `${p.size}px monospace`;
+          p.char = String.fromCharCode(0x30A0 + Math.random() * 96);
+          ctx.fillText(p.char, p.x, p.y);
+          p.y += p.vy;
+          if (p.y > canvas.height) p.y = 0;
+        } else if (backgroundStyle === BackgroundStyle.starfield) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+          ctx.fill();
+          p.y += p.vy;
+          if (p.y > canvas.height) { p.y = 0; p.x = Math.random() * canvas.width; }
+        } else if (backgroundStyle === BackgroundStyle.cyberHexGrid) {
+          ctx.beginPath();
+          const s = p.size;
+          for (let i = 0; i < 6; i++) {
+            const angle = (Math.PI / 3) * i;
+            const hx = p.x + s * Math.cos(angle);
+            const hy = p.y + s * Math.sin(angle);
+            if (i === 0) ctx.moveTo(hx, hy);
+            else ctx.lineTo(hx, hy);
+          }
+          ctx.closePath();
+          ctx.strokeStyle = `rgba(0, 255, 255, ${p.alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < -50 || p.x > canvas.width + 50) p.vx *= -1;
+          if (p.y < -50 || p.y > canvas.height + 50) p.vy *= -1;
+        }
+      }
+
+      animFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    if (backgroundStyle === BackgroundStyle.solidDark) {
+      animate();
+    } else {
+      animFrameRef.current = requestAnimationFrame(animate);
+    }
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animFrameRef.current);
     };
-  }, []);
+  }, [backgroundStyle]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.8 }}
+      className="fixed inset-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 0 }}
     />
   );
-};
-
-export default AnimatedBackground;
+}
